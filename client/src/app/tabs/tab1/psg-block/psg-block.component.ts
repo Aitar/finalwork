@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
+import {Passage} from '../../../../assets/model/Passage.model';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-psg-block',
@@ -7,8 +9,14 @@ import { Component, OnInit } from '@angular/core';
 })
 export class PsgBlockComponent implements OnInit {
 
-  constructor() { }
+  @Input() curPassage: Passage;
+
+  constructor(private router: Router) { }
 
   ngOnInit() {}
+
+  jumpDetail() {
+    this.router.navigate(['/', 'text', this.curPassage.passId]);
+  }
 
 }
