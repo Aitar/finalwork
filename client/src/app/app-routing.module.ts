@@ -15,7 +15,7 @@ const routes: Routes = [
     loadChildren: () => import('./user/user.module').then( m => m.UserPageModule)
   },
   {
-    path: 'psg',
+    path: 'psg/:psgId',
     loadChildren: () => import('./psg/psg.module').then( m => m.PsgPageModule)
   }
 ];

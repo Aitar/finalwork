@@ -1,5 +1,5 @@
 export class Passage {
-    passId: string;
+    psgId: string;
     title: string;
     subtitle: string;
     content: string;
@@ -9,7 +9,7 @@ export class Passage {
 
 
     constructor(passId: string, title: string, subtitle: string, content: string, userId: string, commentsNumber: string, likeNumber: string) {
-        this.passId = passId;
+        this.psgId = passId;
         this.title = title;
         this.subtitle = subtitle;
         this.content = content;

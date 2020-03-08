@@ -7,14 +7,16 @@ import { IonicModule } from '@ionic/angular';
 import { PsgPageRoutingModule } from './psg-routing.module';
 
 import { PsgPage } from './psg.page';
+import {NgZorroAntdMobileModule} from 'ng-zorro-antd-mobile';
 
 @NgModule({
-  imports: [
-    CommonModule,
-    FormsModule,
-    IonicModule,
-    PsgPageRoutingModule
-  ],
+    imports: [
+        CommonModule,
+        FormsModule,
+        IonicModule,
+        PsgPageRoutingModule,
+        NgZorroAntdMobileModule
+    ],
   declarations: [PsgPage]
 })
 export class PsgPageModule {}

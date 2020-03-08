@@ -16,7 +16,7 @@ export class PsgBlockComponent implements OnInit {
   ngOnInit() {}
 
   jumpDetail() {
-    this.router.navigate(['/', 'text', this.curPassage.passId]);
+    this.router.navigate(['/', 'psg', this.curPassage.psgId]);
   }
 
 }

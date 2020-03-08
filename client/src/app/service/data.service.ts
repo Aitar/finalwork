@@ -27,7 +27,8 @@ export class DataService {
     return this.passages.pipe(
         take(1),
         map(passages => {
-          return{...passages.find(p => p.passId == id)};
+          console.log(id);
+          return {...passages.find(p => p.psgId == id)}
         })
     );
   }
