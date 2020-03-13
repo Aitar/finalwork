@@ -17,6 +17,6 @@ import {NgZorroAntdMobileModule} from 'ng-zorro-antd-mobile';
         PsgPageRoutingModule,
         NgZorroAntdMobileModule
     ],
-  declarations: [PsgPage]
+    declarations: [PsgPage]
 })
 export class PsgPageModule {}

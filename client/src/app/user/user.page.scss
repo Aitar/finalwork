@@ -1,0 +1,18 @@
+ion-row{
+  padding: 0;
+}
+
+ion-content{ position:relative;}
+/* 定义父级position:relative 为就认为是绝对定位声明吧 */
+.divcss5-a{
+  position:absolute;
+  left:10px;
+  top:10px;
+}
+/* 使用绝对定位position:absolute样式 并且使用left top进行定位位置 */
+.divcss5-b{
+  position:absolute;
+  right:10px;
+  top:10px;
+}
+/* 使用绝对定位position:absolute样式 并且使用right bottom进行定位位置 */

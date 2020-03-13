@@ -7,7 +7,11 @@ const routes: Routes = [
   {
     path: '',
     component: PsgPage
-  }
+  },
+  {
+    path: 'comment',
+    loadChildren: () => import('./comment/comment.module').then( m => m.CommentPageModule)
+  },
 ];
 
 @NgModule({

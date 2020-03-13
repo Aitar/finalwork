@@ -15,6 +15,30 @@ const routes: Routes = [
   {
     path: 'self',
     loadChildren: () => import('./self/self.module').then( m => m.SelfPageModule)
+  },
+  {
+    path: 'fans',
+    loadChildren: () => import('./fans/fans.module').then( m => m.FansPageModule)
+  },
+  {
+    path: 'flws',
+    loadChildren: () => import('./flws/flws.module').then( m => m.FlwsPageModule)
+  },
+  {
+    path: 'psgs',
+    loadChildren: () => import('./psgs/psgs.module').then( m => m.PsgsPageModule)
+  },
+  {
+    path: 'update',
+    loadChildren: () => import('./update/update.module').then( m => m.UpdatePageModule)
+  },
+  {
+    path: 'config',
+    loadChildren: () => import('./config/config.module').then( m => m.ConfigPageModule)
+  },
+  {
+    path: 'avatar',
+    loadChildren: () => import('./avatar/avatar.module').then( m => m.AvatarPageModule)
   }
 ];
 

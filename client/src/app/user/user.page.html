@@ -1,9 +1,101 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-title>user</ion-title>
-  </ion-toolbar>
-</ion-header>
-
 <ion-content>
+    <ion-buttons>
+        <ion-button class="divcss5-a" (click)="back()">
+            <ion-icon name="arrow-undo-outline" slot="icon-only" color="light"></ion-icon>
+        </ion-button>
+    </ion-buttons>
+    <ion-buttons>
+        <ion-button class="divcss5-b" routerLink="./update">
+            <ion-icon name="cog-sharp" slot="icon-only" color="light"></ion-icon>
+        </ion-button>
+    </ion-buttons>
+  <ion-grid>
+<!--主页图片-->
+      <ion-row>
+        <img src="../../assets/img/user%20background.png">
+      </ion-row>
+      <ion-row>
+<!--          头像-->
+          <ion-col size="3" offset="1">
+              <ion-avatar (click)="viewFollows(message)">
+                  <img [src]="curUser.avaterUrl"
+                       style="
+                       background:#FBFBFB;
+                       padding:4px;
+                       position: relative;
+                       bottom: 15px"
+                  >
+              </ion-avatar>
+          </ion-col>
+          <ion-col size="8">
+              <ion-grid>
+<!--                  用户名-->
+                  <ion-row>
+                      <ion-col>
+                          {{curUser.nickname}}
+                      </ion-col>
+                  </ion-row>
 
+<!--                  个签-->
+                  <ion-row>
+                      <ion-col style="font-size: 12px; color: grey">
+                          {{curUser.email}}
+                      </ion-col>
+                  </ion-row>
+              </ion-grid>
+          </ion-col>
+      </ion-row>
+      <!--粉丝、关注、文章数量-->
+      <ion-row>
+          <ion-col size="3">
+<!--              粉丝-->
+          </ion-col>
+          <ion-col size="3"></ion-col>
+          <ion-col size="3"></ion-col>
+          <ion-col size="3"></ion-col>
+      </ion-row>
+      <ion-row>
+          <Tabs
+                  [page]="3"
+                  [useOnPan]="false"
+                  [swipeable]="true"
+                  [activeTab]="0"
+                  [tabBarActiveTextColor]="'#1890ff'"
+                  (onChange)="onChange($event)"
+                  (onTabClick)="onTabClick($event)"
+          >
+              <TabPane [title]="'主页'">
+                  <div style="display: flex; align-items: center;justify-content: center;height: 150px;background-color: #fff">
+                      Content of second tab
+                  </div>
+              </TabPane>
+              <TabPane [title]="'收藏'">
+
+                  <div style="display: flex; align-items: center;justify-content: center;height: 150px;background-color: #fff">
+                      Content of second tab
+                  </div>
+              </TabPane>
+              <TabPane [title]="'动态'">
+
+                  <div style="display: flex; align-items: center;justify-content: center;height: 150px;background-color: #fff">
+                      Content of second tab
+                  </div>
+              </TabPane>
+          </Tabs>
+      </ion-row>
+  </ion-grid>
 </ion-content>
+
+<ng-template #message>
+    <div class="am-action-sheet-message">
+        <ion-button expand="block" fill="shape" color="white" class="pop-btn" routerLink="./avatar">
+            查看大图
+        </ion-button>
+        <ion-button expand="block" fill="shape" color="white" class="pop-btn">
+            修改头像
+        </ion-button>
+        <ion-button expand="block" fill="shape" color="white" class="pop-btn">
+            保存图片
+        </ion-button>
+    </div>
+</ng-template>

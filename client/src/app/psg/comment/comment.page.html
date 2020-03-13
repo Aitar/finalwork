@@ -1,0 +1,24 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>文章评论</ion-title>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="tabs/tab1"></ion-back-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-list>
+    <ion-item *ngFor="let com of loadedCom">
+      <ion-grid>
+        <app-com-block [curCom]="com"></app-com-block>
+      </ion-grid>
+    </ion-item>
+  </ion-list>
+</ion-content>
+
+<ion-footer>
+  <ion-button expand="full"
+              [routerLink]="'./psg-com-create/' + curPsgId"
+  >评论</ion-button>
+</ion-footer>

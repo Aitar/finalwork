@@ -4,7 +4,9 @@ import {Passage} from '../../assets/model/Passage.model';
 import {mockPassges} from '../../assets/mockData/mock-passages';
 import {mockUsers} from '../../assets/mockData/mock-users';
 import {User} from '../../assets/model/User.model';
-import {map, take} from 'rxjs/operators';
+import {filter, map, take} from 'rxjs/operators';
+import {mockComments} from '../../assets/mockData/mock-comments';
+import {MyComment} from '../../assets/model/MyComment.model';
 
 @Injectable({
   providedIn: 'root'
@@ -12,6 +14,7 @@ import {map, take} from 'rxjs/operators';
 export class DataService {
   private _passages = new BehaviorSubject<Passage[]>(mockPassges);
   private _users = new BehaviorSubject<User[]>(mockUsers);
+  private _comments = new BehaviorSubject<MyComment[]>(mockComments);
 
   constructor() { }
 
@@ -21,6 +24,10 @@ export class DataService {
 
   get passages(){
     return this._passages.asObservable();
+  }
+
+  get comments(){
+      return this._comments.asObservable();
   }
 
   getPsg(id: string){
@@ -40,5 +47,23 @@ export class DataService {
           return {...users.find( u => u.userId == id)};
         })
     );
+  }
+
+  getCom(id: string){
+      return this.comments.pipe(
+          take(1),
+          map( comments => {
+              return {...comments.find(c => c.cid == id)};
+          })
+      );
+  }
+
+  getComByPsgId(id: string){
+      return this.comments.pipe(
+          take(1),
+          map( comments => {
+              return {...comments};
+          })
+      );
   }
 }

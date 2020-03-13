@@ -1,0 +1,44 @@
+<ion-grid>
+  <ion-row>
+    <!--    头像-->
+    <ion-col size="2">
+      <ion-avatar style="width: 42px; height: 42px">
+        <img src="https://gravatar.com/avatar/dba6bae8c566f9d4041fb9cd9ada7741?d=identicon&f=y">
+      </ion-avatar>
+    </ion-col>
+    <!--    名称以及评论内容-->
+    <ion-col size="10">
+      <ion-grid id="content">
+        <!--        名称以及各种标签-->
+        <ion-row>
+          <ion-col size="12">
+            {{curCom.cid}}
+          </ion-col>
+        </ion-row>
+        <!--        评论内容-->
+        <ion-row>
+          <ion-col size="12">
+            {{curCom.content}}
+          </ion-col>
+        </ion-row>
+        <!--        评论时间、点赞数量、以及回复数量-->
+        <ion-row>
+          <ion-col size="6" class="btm">
+            {{curCom.time}}
+          </ion-col>
+          <ion-col size="3" class="btm" (click)="like()">
+            <ion-icon name="thumbs-up-outline" size="small"></ion-icon>
+            {{curCom.likedNum}}
+          </ion-col>
+          <ion-col size="3" class="btm" (click)="viewFollows(message)">
+            <ion-icon name="chatbox-outline" size="small"></ion-icon>
+            {{curCom.followNum}}
+          </ion-col>
+          <ng-template #message>
+            <div class="am-action-sheet-message">123</div>
+          </ng-template>
+        </ion-row>
+      </ion-grid>
+    </ion-col>
+  </ion-row>
+</ion-grid>
