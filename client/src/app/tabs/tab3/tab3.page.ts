@@ -4,23 +4,24 @@ import {AuthService} from '../../service/auth.service';
 import {Router} from '@angular/router';
 
 @Component({
-  selector: 'app-tab3',
-  templateUrl: 'tab3.page.html',
-  styleUrls: ['tab3.page.scss']
+    selector: 'app-tab3',
+    templateUrl: 'tab3.page.html',
+    styleUrls: ['tab3.page.scss']
 })
-export class Tab3Page implements OnInit{
+export class Tab3Page implements OnInit {
 
 
-  curUser: User;
+    curUser: User;
 
-  constructor(private authService: AuthService,
-              private router: Router) {}
+    constructor(private authService: AuthService,
+                private router: Router) {
+    }
 
-  ngOnInit(): void {
-    this.curUser = this.authService.getCurUser();
-  }
+    ngOnInit(): void {
+        this.curUser = this.authService.getCurUser();
+    }
 
-  logout() {
+    logout() {
 
-  }
+    }
 }

@@ -1,35 +1,35 @@
 <ion-header>
 
-  <div style="border-bottom: 1px solid #ddd;">
-    <SearchBar
-            [placeholder]="'搜索文章'"
-            [maxLength]="20"
-            [(ngModel)]="searchValue"
-            (onSubmit)="submit(searchValue)"
-    ></SearchBar>
-  </div>
+    <div style="border-bottom: 1px solid #ddd;">
+        <SearchBar
+                [placeholder]="'搜索文章'"
+                [maxLength]="20"
+                [(ngModel)]="searchValue"
+                (onSubmit)="submit(searchValue)"
+        ></SearchBar>
+    </div>
 
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Tab 1</ion-title>
-    </ion-toolbar>
-  </ion-header>
+    <ion-header collapse="condense">
+        <ion-toolbar>
+            <ion-title size="large">Tab 1</ion-title>
+        </ion-toolbar>
+    </ion-header>
 
-  <ion-grid>
-    <ion-row *ngIf="loadPsgs.length == 0">
-      <ion-col size="12" align="center">
-        <img src="../../../assets/img/original.png" style="width: 160px; height: 100px">
-        <p align="center" style="color: darkgrey">现在没有内容呢，刷新试试吧！</p>
-      </ion-col>
-    </ion-row>
+    <ion-grid>
+        <ion-row *ngIf="loadPsgs.length == 0">
+            <ion-col size="12" align="center">
+                <img src="../../../assets/img/original.png" style="width: 160px; height: 100px">
+                <p align="center" style="color: darkgrey">现在没有内容呢，刷新试试吧！</p>
+            </ion-col>
+        </ion-row>
 
-    <ion-row *ngFor="let passage of loadPsgs">
-      <ion-col>
-        <app-psg-block [curPassage]="passage"></app-psg-block>
-      </ion-col>
-    </ion-row>
-  </ion-grid>
+        <ion-row *ngFor="let passage of loadPsgs">
+            <ion-col>
+                <app-psg-block [curPassage]="passage"></app-psg-block>
+            </ion-col>
+        </ion-row>
+    </ion-grid>
 </ion-content>

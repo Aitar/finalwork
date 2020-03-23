@@ -1,3 +1,9 @@
-ion-card-header{
+ion-card-header {
   padding: 10px 10px 3px 10px;
+}
+
+.brief {
+  overflow: hidden; //超出一行文字自动隐藏
+  text-overflow: ellipsis; //文字隐藏后添加省略号
+  white-space: nowrap; //强制不换行
 }

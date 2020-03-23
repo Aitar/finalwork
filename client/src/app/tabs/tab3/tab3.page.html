@@ -1,122 +1,147 @@
 <ion-content>
-  <ion-grid>
-    <ion-row>
-      <ion-col>
-        <List [className]="'my-list'">
-          <!--          头像以及用户名-->
-          <ListItem multipleLine (onClick)="this.router.navigate(['/', 'user', curUser.userId])">
-            <ion-grid>
-              <ion-row>
-                <ion-col size="3">
-                  <ion-avatar>
-                    <img [src]="curUser.avaterUrl" style="width: 60px; height: 60px">
-                  </ion-avatar>
-                </ion-col>
-                <ion-col size="9">
-                  {{curUser.nickname}}
-                  <Brief style="font-size: 10px" *ngIf="curUser.statement">{{curUser.statement}}</Brief>
-                  <Brief style="font-size: 10px" *ngIf="!curUser.statement">{{curUser.statement}}</Brief>
-                </ion-col>
-              </ion-row>
-            </ion-grid>
-          </ListItem>
+    <ion-grid>
+        <ion-row>
+            <ion-col>
+                <List [className]="'my-list'">
+                    <!--          头像以及用户名-->
+                    <ListItem multipleLine (onClick)="this.router.navigate(['/', 'user', curUser.userId])">
+                        <ion-grid>
+                            <ion-row>
+                                <ion-col size="3">
+                                    <ion-avatar>
+                                        <img [src]="curUser.avaterUrl" style="width: 60px; height: 60px">
+                                    </ion-avatar>
+                                </ion-col>
+                                <ion-col size="9">
+                                    {{curUser.nickname}}
+                                    <Brief style="font-size: 10px"
+                                           *ngIf="curUser.statement">{{curUser.statement}}</Brief>
+                                    <Brief style="font-size: 10px"
+                                           *ngIf="!curUser.statement">{{curUser.statement}}</Brief>
+                                </ion-col>
+                            </ion-row>
+                        </ion-grid>
+                    </ListItem>
 
-          <ListItem>
-            <ion-grid>
-              <ion-row align="center">
-                <ion-col size="3" >
-                  <a [routerLink]="'/user/' + curUser.userId + '/psgs'">
-                    <ion-grid>
-                      <ion-row><ion-col>35</ion-col></ion-row>
-                      <ion-row><ion-col class="pe-label">文章</ion-col></ion-row>
-                    </ion-grid>
-                  </a>
-                </ion-col>
-                <ion-col size="3">
-                  <a [routerLink]="'/user/' + curUser.userId + '/flws'">
-                    <ion-grid>
-                      <ion-row><ion-col>35</ion-col></ion-row>
-                      <ion-row><ion-col class="pe-label">关注</ion-col></ion-row>
-                    </ion-grid>
-                  </a>
-                </ion-col>
-                <ion-col size="3">
-                  <a [routerLink]="'/user/' + curUser.userId + '/fans'">
-                    <ion-grid>
-                      <ion-row><ion-col>8815</ion-col></ion-row>
-                      <ion-row><ion-col class="pe-label">粉丝</ion-col></ion-row>
-                    </ion-grid>
-                  </a>
-                </ion-col>
-                <ion-col size="3"></ion-col>
-              </ion-row>
-            </ion-grid>
-          </ListItem>
-        </List>
+                    <ListItem>
+                        <ion-grid>
+                            <ion-row align="center">
+                                <ion-col size="3">
+                                    <a [routerLink]="'/user/' + curUser.userId + '/psgs'">
+                                        <ion-grid>
+                                            <ion-row>
+                                                <ion-col>35</ion-col>
+                                            </ion-row>
+                                            <ion-row>
+                                                <ion-col class="pe-label">文章</ion-col>
+                                            </ion-row>
+                                        </ion-grid>
+                                    </a>
+                                </ion-col>
+                                <ion-col size="3">
+                                    <a [routerLink]="'/user/' + curUser.userId + '/flws'">
+                                        <ion-grid>
+                                            <ion-row>
+                                                <ion-col>35</ion-col>
+                                            </ion-row>
+                                            <ion-row>
+                                                <ion-col class="pe-label">关注</ion-col>
+                                            </ion-row>
+                                        </ion-grid>
+                                    </a>
+                                </ion-col>
+                                <ion-col size="3">
+                                    <a [routerLink]="'/user/' + curUser.userId + '/fans'">
+                                        <ion-grid>
+                                            <ion-row>
+                                                <ion-col>8815</ion-col>
+                                            </ion-row>
+                                            <ion-row>
+                                                <ion-col class="pe-label">粉丝</ion-col>
+                                            </ion-row>
+                                        </ion-grid>
+                                    </a>
+                                </ion-col>
+                                <ion-col size="3">
+                                    <a [routerLink]="'/user/' + curUser.userId + '/fans'">
+                                        <ion-grid>
+                                            <ion-row>
+                                                <ion-col>515</ion-col>
+                                            </ion-row>
+                                            <ion-row>
+                                                <ion-col class="pe-label">收藏</ion-col>
+                                            </ion-row>
+                                        </ion-grid>
+                                    </a>
+                                </ion-col>
+                            </ion-row>
+                        </ion-grid>
+                    </ListItem>
+                </List>
 
-        <List>
-          <ListItem
-                  [thumb]="icon1"
-                  [arrow]="'horizontal'"
-                  (onClick)="this.router.navigate(['/', 'user', curUser.userId, 'update'])"
-          >
-            <ng-template #icon1>
-              <ion-icon name="person-outline" size="large" color="medium"></ion-icon>
-            </ng-template>
-            <p>修改个人信息</p>
-          </ListItem>
+                <List>
+                    <ListItem
+                            [thumb]="icon1"
+                            [arrow]="'horizontal'"
+                            (onClick)="this.router.navigate(['/', 'user', curUser.userId, 'update'])"
+                    >
+                        <ng-template #icon1>
+                            <ion-icon name="person-outline" size="large" color="medium"></ion-icon>
+                        </ng-template>
+                        <p>修改个人信息</p>
+                    </ListItem>
 
-          <ListItem
-                  [thumb]="icon2"
-                  [arrow]="'horizontal'"
-                  (onClick)="this.router.navigate(['/', 'user', curUser.userId, 'update'])"
-          >
-            <ng-template #icon2>
-              <ion-icon name="reader-outline" size="large" color="medium"></ion-icon>
-            </ng-template>
-            <p>审核中的文章</p>
-          </ListItem>
+                    <ListItem
+                            [thumb]="icon2"
+                            [arrow]="'horizontal'"
+                            (onClick)="this.router.navigate(['/', 'user', curUser.userId, 'update'])"
+                    >
+                        <ng-template #icon2>
+                            <ion-icon name="reader-outline" size="large" color="medium"></ion-icon>
+                        </ng-template>
+                        <p>审核中的文章</p>
+                    </ListItem>
 
-          <ListItem
-                  [thumb]="icon3"
-                  [arrow]="'horizontal'"
-                  (onClick)="this.router.navigate(['/', 'user', curUser.userId, 'config'])"
-          >
-            <ng-template #icon3>
-              <ion-icon name="cog-outline" size="large" color="medium"></ion-icon>
-            </ng-template>
-            <p>设置</p>
-          </ListItem>
+                    <ListItem
+                            [thumb]="icon3"
+                            [arrow]="'horizontal'"
+                            (onClick)="this.router.navigate(['/', 'user', curUser.userId, 'config'])"
+                    >
+                        <ng-template #icon3>
+                            <ion-icon name="cog-outline" size="large" color="medium"></ion-icon>
+                        </ng-template>
+                        <p>设置</p>
+                    </ListItem>
 
-          <ListItem
-                  [thumb]="icon4"
-                  [arrow]="'horizontal'"
-                  (onClick)="this.router.navigate(['/', 'user', curUser.userId, 'config'])"
-          >
-            <ng-template #icon4>
-              <ion-icon name="help-outline" size="large" color="medium"></ion-icon>
-            </ng-template>
-            <p>帮助</p>
-          </ListItem>
+                    <ListItem
+                            [thumb]="icon4"
+                            [arrow]="'horizontal'"
+                            (onClick)="this.router.navigate(['/', 'user', curUser.userId, 'config'])"
+                    >
+                        <ng-template #icon4>
+                            <ion-icon name="help-outline" size="large" color="medium"></ion-icon>
+                        </ng-template>
+                        <p>帮助</p>
+                    </ListItem>
 
-          <ListItem
-                  [thumb]="icon5"
-                  [arrow]="'horizontal'"
-                  (onClick)="this.router.navigate(['/', 'user', curUser.userId, 'config'])"
-          >
-            <ng-template #icon5>
-              <ion-icon name="heart-outline" size="large" color="medium"></ion-icon>
-            </ng-template>
-            <p>反馈</p>
-          </ListItem>
+                    <ListItem
+                            [thumb]="icon5"
+                            [arrow]="'horizontal'"
+                            (onClick)="this.router.navigate(['/', 'user', curUser.userId, 'config'])"
+                    >
+                        <ng-template #icon5>
+                            <ion-icon name="heart-outline" size="large" color="medium"></ion-icon>
+                        </ng-template>
+                        <p>反馈</p>
+                    </ListItem>
 
-        </List>
+                </List>
 
-      </ion-col>
-    </ion-row>
-  </ion-grid>
+            </ion-col>
+        </ion-row>
+    </ion-grid>
 </ion-content>
 
 <ion-footer>
-  <ion-button color="medium" expand="block" (click)="logout()">退出登录</ion-button>
+    <ion-button color="medium" expand="block" (click)="logout()">退出登录</ion-button>
 </ion-footer>

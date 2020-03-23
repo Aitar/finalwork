@@ -1,12 +1,12 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
+import {NgModule} from '@angular/core';
+import {CommonModule} from '@angular/common';
+import {FormsModule} from '@angular/forms';
 
-import { IonicModule } from '@ionic/angular';
+import {IonicModule} from '@ionic/angular';
 
-import { PsgComCreatePageRoutingModule } from './psg-com-create-routing.module';
+import {PsgComCreatePageRoutingModule} from './psg-com-create-routing.module';
 
-import { PsgComCreatePage } from './psg-com-create.page';
+import {PsgComCreatePage} from './psg-com-create.page';
 import {NgZorroAntdMobileModule} from 'ng-zorro-antd-mobile';
 
 @NgModule({
@@ -17,6 +17,7 @@ import {NgZorroAntdMobileModule} from 'ng-zorro-antd-mobile';
         PsgComCreatePageRoutingModule,
         NgZorroAntdMobileModule
     ],
-  declarations: [PsgComCreatePage]
+    declarations: [PsgComCreatePage]
 })
-export class PsgComCreatePageModule {}
+export class PsgComCreatePageModule {
+}

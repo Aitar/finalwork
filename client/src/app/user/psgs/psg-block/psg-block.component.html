@@ -3,23 +3,29 @@
              [(ngModel)]="psg"
              ngDefaultControl
 >
-  <ListItem
-          routerLink="./psg-detail"
-          no-padding
-  >
-    <ion-grid>
-      <ion-row>
-        <ion-col>{{psg.title}}</ion-col>
-      </ion-row>
-      <ion-row style="font-size: 12px">
-        <ion-col size="12">最后编辑：2020-3-10 17:24</ion-col>
-      </ion-row>
-      <ion-row style="font-size: 10px">
-        <ion-col size="4"><ion-icon name="thumbs-up-outline" size="small"></ion-icon>{{psg.likeNumber}}</ion-col>
-        <ion-col size="4"><ion-icon name="chatbox-outline" size="small"></ion-icon>{{psg.commentsNumber}}</ion-col>
-        <ion-col size="4"><ion-icon name="eye-outline" size="small"></ion-icon>{{psg.commentsNumber+psg.likeNumber}}</ion-col>
-      </ion-row>
-    </ion-grid>
+    <ListItem
+            routerLink="./psg-detail"
+            no-padding
+    >
+        <ion-grid>
+            <ion-row>
+                <ion-col>{{psg.title}}</ion-col>
+            </ion-row>
+            <ion-row style="font-size: 12px">
+                <ion-col size="12">最后编辑：2020-3-10 17:24</ion-col>
+            </ion-row>
+            <ion-row style="font-size: 10px">
+                <ion-col size="4">
+                    <ion-icon name="thumbs-up-outline" size="small"></ion-icon>
+                    {{psg.likeNumber}}</ion-col>
+                <ion-col size="4">
+                    <ion-icon name="chatbox-outline" size="small"></ion-icon>
+                    {{psg.commentsNumber}}</ion-col>
+                <ion-col size="4">
+                    <ion-icon name="eye-outline" size="small"></ion-icon>
+                    {{psg.commentsNumber + psg.likeNumber}}</ion-col>
+            </ion-row>
+        </ion-grid>
 
-  </ListItem>
+    </ListItem>
 </SwipeAction>

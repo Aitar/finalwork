@@ -1,46 +1,46 @@
 <ion-row *ngIf="curCom">
-<!--    头像-->
+    <!--    头像-->
     <ion-col size="2">
-      <ion-avatar>
-        <img [src]="curUser.avaterUrl">
-      </ion-avatar>
+        <ion-avatar>
+            <img [src]="curUser.avaterUrl">
+        </ion-avatar>
     </ion-col>
-<!--    名称以及评论内容-->
+    <!--    名称以及评论内容-->
     <ion-col size="10">
-      <ion-grid id="content">
-<!--        名称以及各种标签-->
-        <ion-row>
-          <ion-col size="12">
-            {{curUser.nickname}}
-          </ion-col>
-        </ion-row>
-<!--        评论内容-->
-        <ion-row>
-          <ion-col size="12" style="color: grey; font-size: 13px">
-            {{curCom.content}}
-          </ion-col>
-        </ion-row>
-<!--        评论时间、点赞数量、以及回复数量-->
-        <ion-row>
-          <ion-col size="6" class="btm">
-            {{curCom.time}}
-          </ion-col>
-          <ion-col size="3" class="btm" (click)="like()">
-              <ion-icon name="thumbs-up-outline" size="small" [hidden]="isLiked"></ion-icon>
-              <ion-icon name="thumbs-up-sharp" size="small" [hidden]="!isLiked"></ion-icon>
-            {{curCom.likedNum}}
-          </ion-col>
+        <ion-grid id="content">
+            <!--        名称以及各种标签-->
+            <ion-row>
+                <ion-col size="12">
+                    {{curUser.nickname}}
+                </ion-col>
+            </ion-row>
+            <!--        评论内容-->
+            <ion-row>
+                <ion-col size="12" style="color: grey; font-size: 13px">
+                    {{curCom.content}}
+                </ion-col>
+            </ion-row>
+            <!--        评论时间、点赞数量、以及回复数量-->
+            <ion-row>
+                <ion-col size="6" class="btm">
+                    {{curCom.time}}
+                </ion-col>
+                <ion-col size="3" class="btm" (click)="like()">
+                    <ion-icon name="thumbs-up-outline" size="small" [hidden]="isLiked"></ion-icon>
+                    <ion-icon name="thumbs-up-sharp" size="small" [hidden]="!isLiked"></ion-icon>
+                    {{curCom.likedNum}}
+                </ion-col>
 
-          <ion-col size="3" class="btm" (click)="viewFollows(message)">
-<!--              <a [routerLink]="'./flw-com-page/' + curCom.cid">-->
-                <ion-icon name="chatbox-outline" size="small"></ion-icon>
-                {{curCom.followNum}}
-<!--              </a>-->
-          </ion-col>
-        </ion-row>
-      </ion-grid>
+                <ion-col size="3" class="btm" (click)="viewFollows(message)">
+                    <!--              <a [routerLink]="'./flw-com-page/' + curCom.cid">-->
+                    <ion-icon name="chatbox-outline" size="small"></ion-icon>
+                    {{curCom.followNum}}
+                    <!--              </a>-->
+                </ion-col>
+            </ion-row>
+        </ion-grid>
     </ion-col>
-  </ion-row>
+</ion-row>
 
 <ion-row *ngIf="!curCom">
     <!--    头像-->
@@ -87,7 +87,9 @@
         >
             <ion-grid>
                 <ion-row>
-                    <ion-col size="1"><ion-icon name="chatbox-ellipses-outline"></ion-icon></ion-col>
+                    <ion-col size="1">
+                        <ion-icon name="chatbox-ellipses-outline"></ion-icon>
+                    </ion-col>
                     <ion-col size="1" offset="1">查看{{curCom.followNum}}条回复</ion-col>
                 </ion-row>
             </ion-grid>
@@ -98,7 +100,9 @@
         >
             <ion-grid>
                 <ion-row>
-                    <ion-col size="1"><ion-icon name="create-outline"></ion-icon></ion-col>
+                    <ion-col size="1">
+                        <ion-icon name="create-outline"></ion-icon>
+                    </ion-col>
                     <ion-col size="1" offset="1">回复</ion-col>
                 </ion-row>
             </ion-grid>
@@ -109,7 +113,9 @@
         >
             <ion-grid>
                 <ion-row>
-                    <ion-col size="1"><ion-icon name="warning-outline"></ion-icon></ion-col>
+                    <ion-col size="1">
+                        <ion-icon name="warning-outline"></ion-icon>
+                    </ion-col>
                     <ion-col size="1" offset="1">举报</ion-col>
                 </ion-row>
             </ion-grid>

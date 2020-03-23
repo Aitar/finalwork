@@ -1,84 +1,91 @@
 <ion-header>
-  <ion-toolbar>
-    <ion-title>{{curPsg.title}}</ion-title>
-    <ion-buttons slot="start">
-      <ion-back-button defaultHref="/tabs/tab1"></ion-back-button>
-    </ion-buttons>
-  </ion-toolbar>
+    <ion-toolbar>
+        <ion-title>{{curPsg.title}}</ion-title>
+        <ion-buttons slot="start">
+            <ion-back-button defaultHref="/tabs/tab1"></ion-back-button>
+        </ion-buttons>
+    </ion-toolbar>
 </ion-header>
 
 <ion-content>
 
-  <ion-grid>
-    <!--头像、名称与介绍-->
-    <ion-row>
-      <ion-col size="2">
-        <ion-avatar style="width: 48px; height: 48px;"><img [src]="curUser.avaterUrl"></ion-avatar>
-      </ion-col>
-      <ion-col size="7">
-        <ion-grid>
-          <ion-row>
-            <ion-col>
-              {{curUser.nickname}}
+    <ion-grid>
+        <!--头像、名称与介绍-->
+        <ion-row style="border-bottom: 1px #f2f3f6 solid;">
+            <ion-col size="2">
+                <ion-avatar style="width: 48px; height: 48px;"><img [src]="writer.avaterUrl"></ion-avatar>
             </ion-col>
-          </ion-row>
-          <ion-row>
-            <ion-col style="color: grey; font-size: 10px">
-              {{curUser.statement}}
+            <ion-col size="7">
+                <ion-grid>
+                    <ion-row>
+                        <ion-col>
+                            {{writer.nickname}}
+                        </ion-col>
+                    </ion-row>
+                    <ion-row>
+                        <ion-col style="color: grey; font-size: 10px">
+                            {{writer.statement}}
+                        </ion-col>
+                    </ion-row>
+                </ion-grid>
             </ion-col>
-          </ion-row>
-        </ion-grid>
-      </ion-col>
-      <ion-col size="3">
-        <ion-button expand="block" (click)="follow()" [hidden]="isFollowed">关注</ion-button>
-        <ion-button expand="block" (click)="follow()" color="medium" [hidden]="!isFollowed">已关注</ion-button>
-      </ion-col>
-    </ion-row>
-    <WhiteSpace size='md'></WhiteSpace>
-    <!--    文章正文部分-->
-    <WingBlank>
-      <ion-row>
-        <ion-col>
-          {{curPsg.content}}{{curPsg.content}}{{curPsg.content}}{{curPsg.content}}{{curPsg.content}}{{curPsg.content}}{{curPsg.content}}{{curPsg.content}}
-        </ion-col>
-      </ion-row>
-    </WingBlank>
-  </ion-grid>
+            <ion-col size="3">
+                <ion-button expand="block" (click)="follow()" [hidden]="isFollowed">关注</ion-button>
+                <ion-button expand="block" (click)="follow()" color="medium" [hidden]="!isFollowed">已关注</ion-button>
+            </ion-col>
+        </ion-row>
+        <WhiteSpace size='md'></WhiteSpace>
+        <!--    文章正文部分-->
+        <WingBlank>
+            <ion-row style="border-bottom: 1px #f2f3f6 solid; color: #393939">
+                <ion-col>
+                    {{curPsg.content}}{{curPsg.content}}{{curPsg.content}}{{curPsg.content}}{{curPsg.content}}{{curPsg.content}}{{curPsg.content}}{{curPsg.content}}
+                </ion-col>
+            </ion-row>
+            <WhiteSpace size='md'></WhiteSpace>
+            <ion-row style="color: grey; font-size: 12px">
+                <ion-col>文章最后编辑于：2020.3.12 21:22</ion-col>
+            </ion-row>
+        </WingBlank>
+    </ion-grid>
 </ion-content>
 
 <ion-footer>
-  <ion-toolbar>
+    <ion-toolbar>
 
-<!--        点赞-->
+        <!--        点赞-->
 
-          <ion-button fill="clear" (click)="like()">
-            <ion-icon name="thumbs-up-sharp" [hidden]="isliked"></ion-icon>
-            <ion-icon name="thumbs-up-outline" [hidden]="!isliked"></ion-icon>
+        <ion-button fill="clear" (click)="like()">
+            <ion-icon name="thumbs-up-sharp" *ngIf="isliked"></ion-icon>
+            <ion-icon name="thumbs-up-outline" *ngIf="!isliked"></ion-icon>
             {{curPsg.likeNumber}}
-          </ion-button>
+        </ion-button>
 
-<!--        评论-->
+        <!--        评论-->
 
-          <ion-button fill="clear" routerLink="./comment">
-            <ion-icon name="chatbox"></ion-icon>{{curPsg.commentsNumber}}
-          </ion-button>
+        <ion-button fill="clear" routerLink="./comment">
+            <ion-icon name="chatbox-outline"></ion-icon>
+            {{curPsg.commentsNumber}}
+        </ion-button>
 
-<!--        收藏-->
+        <!--        收藏-->
 
-          <ion-buttons slot="end">
+        <ion-buttons slot="end">
             <ion-button color="primary" (click)="collect()">
-              <ion-icon name="star-outline" slot="icon-only" [hidden]="isColleted"></ion-icon>
-              <ion-icon name="star" slot="icon-only" [hidden]="!isColleted"></ion-icon>
+                <ion-icon name="star-outline" slot="icon-only" [hidden]="isColleted"></ion-icon>
+                <ion-icon name="star" slot="icon-only" [hidden]="!isColleted"></ion-icon>
             </ion-button>
-          </ion-buttons>
+        </ion-buttons>
 
-<!--        其他-->
+        <!--        其他-->
 
-          <ion-buttons slot="end">
-            <ion-button><ion-icon name="ellipsis-vertical-outline" slot="icon-only"></ion-icon></ion-button>
-          </ion-buttons>
+        <ion-buttons slot="end">
+            <ion-button>
+                <ion-icon name="ellipsis-vertical-outline" slot="icon-only"></ion-icon>
+            </ion-button>
+        </ion-buttons>
 
-  </ion-toolbar>
+    </ion-toolbar>
 </ion-footer>
 
 

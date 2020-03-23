@@ -1,55 +1,56 @@
 <ion-header no-border>
-  <ion-toolbar>
-    <ion-grid>
-      <ion-row>
-      <!--    头像-->
-      <ion-col size="2">
-        <ion-avatar style="width: 42px; height: 42px">
-          <img src="https://gravatar.com/avatar/dba6bae8c566f9d4041fb9cd9ada7741?d=identicon&f=y">
-        </ion-avatar>
-      </ion-col>
-      <!--    名称以及评论内容-->
-      <ion-col size="10">
-        <ion-grid id="content">
-          <!--        名称以及各种标签-->
-          <ion-row>
-            <ion-col size="11">
-              {{curCom.cid}}
-            </ion-col>
-            <ion-col size="1" (click)="back()">
-              <ion-icon name="close"></ion-icon>
-            </ion-col>
-          </ion-row>
-          <!--        评论内容-->
-          <ion-row>
-            <ion-col size="12" style="font-size: 12px">
-           {{curCom.content}}
-            </ion-col>
-          </ion-row>
+    <ion-toolbar>
+        <ion-grid>
+            <ion-row>
+                <!--    头像-->
+                <ion-col size="2">
+                    <ion-avatar style="width: 42px; height: 42px">
+                        <img [src]="curUser.avaterUrl">
+                    </ion-avatar>
+                </ion-col>
+                <!--    名称以及评论内容-->
+                <ion-col size="10">
+                    <ion-grid id="content">
+                        <!--        名称以及各种标签-->
+                        <ion-row>
+                            <ion-col size="11">
+                                {{curUser.nickname}}
+                            </ion-col>
+                            <ion-col size="1" (click)="back()">
+                                <ion-icon name="close"></ion-icon>
+                            </ion-col>
+                        </ion-row>
+                        <!--        评论内容-->
+                        <ion-row>
+                            <ion-col size="12" style="font-size: 12px">
+                                {{curCom.content}}
+                            </ion-col>
+                        </ion-row>
 
+                    </ion-grid>
+                </ion-col>
+            </ion-row>
         </ion-grid>
-      </ion-col>
-    </ion-row>
-    </ion-grid>
 
-  </ion-toolbar>
+    </ion-toolbar>
 </ion-header>
 <ion-content>
-  <ion-grid>
+    <ion-grid>
 
-    <ion-row>
-      <ion-col>
-        <div class="am-list" style="margin:0;">
-          <div class="am-list-body">
-            <TextareaItem [rows]="18" [count]="400" [placeholder]="'写下你的评论...'" [(ngModel)]="comContent"></TextareaItem>
-          </div>
-        </div>
-      </ion-col>
-    </ion-row>
+        <ion-row>
+            <ion-col>
+                <div class="am-list" style="margin:0;">
+                    <div class="am-list-body">
+                        <TextareaItem [rows]="18" [count]="400" [placeholder]="'写下你的评论...'"
+                                      [(ngModel)]="comContent"></TextareaItem>
+                    </div>
+                </div>
+            </ion-col>
+        </ion-row>
 
-  </ion-grid>
+    </ion-grid>
 </ion-content>
 
 <ion-footer>
-  <ion-button expand="block" (click)="submitComment()">提交评论</ion-button>
+    <ion-button expand="block" (click)="submitComment()">提交评论</ion-button>
 </ion-footer>

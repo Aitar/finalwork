@@ -1,36 +1,37 @@
 <ion-toolbar>
-  <ion-buttons slot="primary">
-    <ion-button (click)="back()">
-      <ion-icon slot="icon-only" name="close"></ion-icon>
-    </ion-button>
-  </ion-buttons>
-  <ion-grid>
-<!--    文章名称-->
-    <ion-row>
-      <ion-col>{{curPsg.title}}</ion-col>
-    </ion-row>
-    <ion-row>
-<!--      文章作者-->
-      <ion-col style="font-size: 12px; color: grey">{{tarUser.nickname}}</ion-col>
-    </ion-row>
-  </ion-grid>
+    <ion-buttons slot="primary">
+        <ion-button (click)="back()">
+            <ion-icon slot="icon-only" name="close"></ion-icon>
+        </ion-button>
+    </ion-buttons>
+    <ion-grid>
+        <!--    文章名称-->
+        <ion-row>
+            <ion-col offset="1">{{curPsg.title}}</ion-col>
+        </ion-row>
+        <ion-row>
+            <!--      文章作者-->
+            <ion-col offset="1" style="font-size: 12px; color: grey">作者：{{tarUser.nickname}}</ion-col>
+        </ion-row>
+    </ion-grid>
 </ion-toolbar>
 
 <ion-content>
-  <ion-grid>
-    <ion-row>
-      <ion-col>
-        <div class="am-list" style="margin:0;">
-          <div class="am-list-body">
-            <TextareaItem [rows]="19" [count]="400" [placeholder]="'写下你的评论...'" [(ngModel)]="comContent"></TextareaItem>
-          </div>
-        </div>
-      </ion-col>
-    </ion-row>
+    <ion-grid>
+        <ion-row>
+            <ion-col>
+                <div class="am-list" style="margin:0;">
+                    <div class="am-list-body">
+                        <TextareaItem [rows]="19" [count]="400" [placeholder]="'写下你的评论...'"
+                                      [(ngModel)]="comContent"></TextareaItem>
+                    </div>
+                </div>
+            </ion-col>
+        </ion-row>
 
-  </ion-grid>
+    </ion-grid>
 </ion-content>
 
 <ion-footer>
-  <ion-button expand="block" (click)="submitComment()">提交评论</ion-button>
+    <ion-button expand="block" (click)="submitComment()">提交评论</ion-button>
 </ion-footer>

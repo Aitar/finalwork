@@ -1,0 +1,72 @@
+<nz-table
+  #dynamicTable
+  [nzData]="loadedPsgs"
+  [nzLoading]="isLoading"
+  nzPaginationPosition="bottom"
+  [nzShowPagination]="true"
+  nzSize="small"
+  (nzCurrentPageDataChange)="currentPageDataChange($event)"
+>
+  <thead>
+  <tr>
+    <th
+      nzWidth="62px"
+      nzShowCheckbox
+      [(nzChecked)]="allChecked"
+      [nzIndeterminate]="indeterminate"
+      (nzCheckedChange)="checkAll($event)"
+    ></th>
+    <th nzWidth="50px"></th>
+    <th nzWidth="180px">标题</th>
+    <th nzWidth="150px">作者</th>
+    <th nzWidth="160px">发布日期</th>
+    <th nzWidth="80px">浏览量</th>
+    <th nzWidth="200px">
+      <button nz-button nzType="primary" (click)="createPsg()">
+        <i nz-icon nzType="plus-square" nzTheme="outline"></i>创建新文章
+      </button>
+    </th>
+  </tr>
+  </thead>
+  <tbody>
+
+  <tr *ngFor="let psg of loadedPsgs">
+    <td nzShowCheckbox (nzCheckedChange)="refreshStatus()"></td>
+    <td>
+      <nz-avatar nzSize="small" [nzSrc]="'http://localhost:8080/file/'+ psg.authorUser.avatarUrl +'.jpg'">
+      </nz-avatar>
+    </td>
+    <td>{{psg.title}}</td>
+    <td>{{psg.authorUser.nickName}}</td>
+    <td>{{psg.updatedTime}}</td>
+    <td>{{psg.viewedTime}}</td>
+    <td>
+      <button nz-button nzType="primary" nzShape="circle" nz-tooltip nzTooltipTitle="查看详细信息" (click)="showInfo(user)"><i nz-icon nzType="ellipsis" nzTheme="outline"></i></button>
+      <button nz-button nzType="primary" nzShape="circle" nz-tooltip nzTooltipTitle="编辑文章信息" (click)="updateInfo(user)"><i nz-icon nzType="edit" nzTheme="outline"></i></button>
+      <button nz-button nzType="danger" nzShape="circle" nz-tooltip nzTooltipTitle="删除文章" (click)="delete(psg)"><i nz-icon nzType="delete" nzTheme="outline"></i></button>
+    </td>
+  </tr>
+  </tbody>
+</nz-table>
+
+<nz-modal [(nzVisible)]="isCreateVisible" nzTitle="创建文章" (nzOnCancel)="createCancel()" (nzOnOk)="createOk()">
+  <p>
+    <nz-input-group nzAddOnBefore="ID">
+      <input [disabled]="true" type="text" nz-input [(ngModel)]="generateId"/>
+    </nz-input-group>
+  </p>
+  <p>
+    <nz-input-group nzAddOnBefore="标题">
+      <input type="email" nz-input [(ngModel)]="createTitle" placeholder="文章标题"/>
+    </nz-input-group>
+  </p>
+  <p>
+    <nz-select nzShowSearch nzAllowClear nzPlaceHolder="选择文章的作者" [(ngModel)]="selectedUser">
+      <nz-option *ngFor="let user of loadedUsers" [nzLabel]="user.nickName" [nzValue]="user.nickName"></nz-option>
+    </nz-select>
+  </p>
+
+  <p>
+    <textarea rows="10" nz-input placeholder="在这里输入正文内容" [(ngModel)]="createContent"></textarea>
+  </p>
+</nz-modal>

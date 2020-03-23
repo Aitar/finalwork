@@ -1,10 +1,10 @@
 <ion-header>
-  <ion-toolbar>
-    <ion-title>全部文章</ion-title>
-    <ion-buttons slot="start">
-      <ion-back-button defaultHref="/tabs/tab3"></ion-back-button>
-    </ion-buttons>
-  </ion-toolbar>
+    <ion-toolbar>
+        <ion-title>全部文章</ion-title>
+        <ion-buttons slot="start">
+            <ion-back-button defaultHref="/tabs/tab3"></ion-back-button>
+        </ion-buttons>
+    </ion-toolbar>
 </ion-header>
 
 <Tabs
@@ -16,21 +16,21 @@
         (onChange)="onChange($event)"
         (onTabClick)="onTabClick($event)"
 >
-  <TabPane [title]="'已发布'">
-    <ion-content>
-      <List [className]="'psg-list'" style="padding: 0">
-        <div *ngFor="let psg of loadedPsgs" style="padding: 0">
-          <app-psg-block ngDefaultControl [psg]="psg"></app-psg-block>
-        </div>
-      </List>
-    </ion-content>
-  </TabPane>
-  <TabPane [title]="'草稿'">
+    <TabPane [title]="'已发布'">
+        <ion-content>
+            <List [className]="'psg-list'" style="padding: 0">
+                <div *ngFor="let psg of loadedPsgs" style="padding: 0">
+                    <app-psg-block ngDefaultControl [psg]="psg"></app-psg-block>
+                </div>
+            </List>
+        </ion-content>
+    </TabPane>
+    <TabPane [title]="'草稿'">
 
-    <div style="display: flex; align-items: center;justify-content: center;height: 150px;background-color: #fff">
-      Content of second tab
-    </div>
-  </TabPane>
+        <div style="display: flex; align-items: center;justify-content: center;height: 150px;background-color: #fff">
+            Content of second tab
+        </div>
+    </TabPane>
 </Tabs>
 <WhiteSpace></WhiteSpace>
 

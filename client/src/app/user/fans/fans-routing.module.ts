@@ -1,17 +1,18 @@
-import { NgModule } from '@angular/core';
-import { Routes, RouterModule } from '@angular/router';
+import {NgModule} from '@angular/core';
+import {Routes, RouterModule} from '@angular/router';
 
-import { FansPage } from './fans.page';
+import {FansPage} from './fans.page';
 
 const routes: Routes = [
-  {
-    path: '',
-    component: FansPage
-  }
+    {
+        path: '',
+        component: FansPage
+    }
 ];
 
 @NgModule({
-  imports: [RouterModule.forChild(routes)],
-  exports: [RouterModule],
+    imports: [RouterModule.forChild(routes)],
+    exports: [RouterModule],
 })
-export class FansPageRoutingModule {}
+export class FansPageRoutingModule {
+}

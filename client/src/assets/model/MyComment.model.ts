@@ -1,4 +1,4 @@
-export class MyComment{
+export class MyComment {
     cid: string;
     owner: string;
     targetPsg: string;
@@ -9,7 +9,7 @@ export class MyComment{
     hotIdx: number;
 
 
-    constructor(cid: string, owner: string, targetPsg: string, content: string, time: string, followNum: number, likedNum: number,hotIdx: number) {
+    constructor(cid: string, owner: string, targetPsg: string, content: string, time: string, followNum: number, likedNum: number, hotIdx: number) {
         this.cid = cid;
         this.owner = owner;
         this.targetPsg = targetPsg;

@@ -1,0 +1,79 @@
+<nz-table
+  #dynamicTable
+  [nzData]="loadedUsers"
+  [nzLoading]="isLoading"
+  nzPaginationPosition="bottom"
+  [nzShowPagination]="true"
+  nzSize="small"
+  (nzCurrentPageDataChange)="currentPageDataChange($event)"
+>
+  <thead>
+  <tr>
+    <th
+      nzWidth="62px"
+      nzShowCheckbox
+      [(nzChecked)]="allChecked"
+      [nzIndeterminate]="indeterminate"
+      (nzCheckedChange)="checkAll($event)"
+    ></th>
+    <th nzWidth="50px"></th>
+    <th nzWidth="180px">邮箱</th>
+    <th nzWidth="150px">昵称</th>
+    <th nzWidth="160px">最近登录</th>
+    <th nzWidth="80px">积分</th>
+    <th nzWidth="200px">
+      <button nz-button nzType="primary" (click)="createUser()">
+        <i nz-icon nzType="plus-square" nzTheme="outline"></i>创建新用户
+      </button>
+      </th>
+  </tr>
+  </thead>
+  <tbody>
+
+    <tr *ngFor="let user of loadedUsers">
+      <td nzShowCheckbox (nzCheckedChange)="refreshStatus()"></td>
+      <td>
+        <nz-avatar nzSize="small" [nzSrc]="'http://localhost:8080/file/null.jpg'">
+        </nz-avatar>
+      </td>
+      <td>{{user.email}}</td>
+      <td>{{user.nickName}}</td>
+      <td>{{user.lastLogin}}</td>
+      <td>{{user.point}}</td>
+      <td>
+        <button nz-button nzType="primary" nzShape="circle" nz-tooltip nzTooltipTitle="查看详细信息" (click)="showInfo(user)"><i nz-icon nzType="ellipsis" nzTheme="outline"></i></button>
+        <button nz-button nzType="primary" nzShape="circle" nz-tooltip nzTooltipTitle="编辑用户信息信息" (click)="updateInfo(user)"><i nz-icon nzType="edit" nzTheme="outline"></i></button>
+        <button nz-button nzType="danger" nzShape="circle" nz-tooltip nzTooltipTitle="删除用户" (click)="delete(user)"><i nz-icon nzType="delete" nzTheme="outline"></i></button>
+      </td>
+    </tr>
+  </tbody>
+</nz-table>
+
+<nz-modal [(nzVisible)]="isCreateVisible" nzTitle="创建用户" (nzOnCancel)="createCancel()" (nzOnOk)="createOk()">
+  <p>
+    <nz-input-group nzAddOnBefore="ID">
+      <input [disabled]="true" type="text" nz-input [(ngModel)]="generateId"/>
+    </nz-input-group>
+  </p>
+  <p>
+    <nz-input-group nzAddOnBefore="Email">
+      <input type="email" nz-input [(ngModel)]="createEmail" placeholder="邮箱，将用此邮箱作为登录账号"/>
+    </nz-input-group>
+  </p>
+  <p>
+    <nz-input-group nzAddOnBefore="昵称">
+      <input type="text" nz-input [(ngModel)]="createNickName" placeholder="输入您的昵称"/>
+    </nz-input-group>
+  </p>
+  <nz-input-group nzAddOnBefore="密码" [nzSuffix]="suffixTemplate">
+    <input
+      [type]="passwordVisible ? 'text' : 'password'"
+      nz-input
+      placeholder="input password"
+      [(ngModel)]="createPassword"
+    />
+  </nz-input-group>
+  <ng-template #suffixTemplate>
+    <i nz-icon [nzType]="passwordVisible ? 'eye-invisible' : 'eye'" (click)="passwordVisible = !passwordVisible"></i>
+  </ng-template>
+</nz-modal>

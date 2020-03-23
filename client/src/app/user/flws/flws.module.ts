@@ -1,12 +1,12 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
+import {NgModule} from '@angular/core';
+import {CommonModule} from '@angular/common';
+import {FormsModule} from '@angular/forms';
 
-import { IonicModule } from '@ionic/angular';
+import {IonicModule} from '@ionic/angular';
 
-import { FlwsPageRoutingModule } from './flws-routing.module';
+import {FlwsPageRoutingModule} from './flws-routing.module';
 
-import { FlwsPage } from './flws.page';
+import {FlwsPage} from './flws.page';
 import {NgZorroAntdMobileModule} from 'ng-zorro-antd-mobile';
 
 @NgModule({
@@ -17,6 +17,7 @@ import {NgZorroAntdMobileModule} from 'ng-zorro-antd-mobile';
         FlwsPageRoutingModule,
         NgZorroAntdMobileModule
     ],
-  declarations: [FlwsPage]
+    declarations: [FlwsPage]
 })
-export class FlwsPageModule {}
+export class FlwsPageModule {
+}
