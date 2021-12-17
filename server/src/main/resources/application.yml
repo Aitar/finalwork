@@ -1,0 +1,17 @@
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/final_work?characterEncoding=utf8&useUnicode=true&useSSL=false&serverTimezone=UTC
+    username: root
+    password: hariod
+
+#  data:
+#    mongodb:
+#      host: 127.0.0.1
+#      port: 27017
+mybatis:
+  type-aliases-package: com.msc.pojo
+
+server:
+  address: 0.0.0.0
+  port: 8088
