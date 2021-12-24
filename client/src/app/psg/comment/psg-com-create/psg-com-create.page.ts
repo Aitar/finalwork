@@ -7,7 +7,10 @@ import {Passage} from '../../../../assets/model/Passage.model';
 import {User} from '../../../../assets/model/User.model';
 import {MyComment} from '../../../../assets/model/MyComment.model';
 import {AuthService} from '../../../service/auth.service';
-import {mockComments} from '../../../../assets/mockData/mock-comments';
+import {PsgService} from '../../../service/psg.service';
+import {UserService} from '../../../service/user.service';
+import {CommentService} from '../../../service/comment.service';
+import {HttpErrorResponse} from '@angular/common/http';
 
 @Component({
     selector: 'app-psg-com-create',
@@ -20,16 +23,21 @@ export class PsgComCreatePage implements OnInit {
     tarUser: User;
     curUser: User;
     comContent: string;
+    isloading = false;
 
     constructor(private _toast: ToastService,
                 private navCtrl: NavController,
                 private route: ActivatedRoute,
+                private psgService: PsgService,
+                private userService: UserService,
+                private commentService: CommentService,
                 private dataService: DataService,
                 private authService: AuthService) {
     }
 
     ngOnInit() {
-        this.curUser = this.authService.getCurUser();
+        this.isloading = true;
+        this.curUser = this.authService.curUser;
         let isTimeout: boolean = true;
         this.route.paramMap.subscribe(paramMap => {
             console.log(paramMap);
@@ -44,20 +52,21 @@ export class PsgComCreatePage implements OnInit {
             setTimeout(() => {
                 this._toast.hide();
                 if (isTimeout) {
-                    this._toast.fail('加载超时！', 2000, () => {
+                    this._toast.fail('加载超时！', 1000, () => {
                         this.navCtrl.back();
                         return;
                     });
                 }
-            }, 1000);
+            }, 10000);
 
-            this.dataService.getPsg(paramMap.get('psgId')).subscribe(psg => {
+            this.psgService.getPsg(paramMap.get('psgId')).subscribe(psg => {
                 this.curPsg = psg;
-                this.dataService.getUser(this.curPsg.userId).subscribe(user => {
+                this.userService.getUser(this.curPsg.author).subscribe(user => {
                     this.tarUser = user;
                     console.log(user);
                     this._toast.hide();
                     isTimeout = false;
+                    this.isloading = false;
                 })
             })
         })
@@ -66,24 +75,31 @@ export class PsgComCreatePage implements OnInit {
 
     submitComment() {
         if (!this.comContent) {
-            this._toast.fail('无法提交空评论', 1000);
+            this._toast.fail('请写些东西再提交吧', 1000);
             return;
         }
-        mockComments.push(
-            new MyComment(
-                'com' + (new Date()).valueOf(),
-                this.curUser.userId,
-                this.curPsg.psgId,
-                this.comContent,
-                this.dataService.getLocalTime(new Date().getTime()),
-                0,
-                0,
-                0
-            ));
-        this._toast.success('评论成功', 1000, () => {
-            this.navCtrl.back()
-        });
-        console.log((new Date()).valueOf());
+        let com: MyComment = new MyComment();
+        com.allArgs('com' + (new Date()).valueOf(),
+            this.curUser.id,
+            this.curPsg.id,
+            this.comContent,
+            this.dataService.formatIt(new Date(), 'YYYY-MM-DD'),
+            0,
+            0,
+            0);
+        console.log(com);
+        this.commentService.insertCom(com).subscribe( massage => {
+            console.log(massage);
+            this._toast.success('评论成功', 1000, () => {
+                this.navCtrl.back()
+            });
+            },
+            (error: HttpErrorResponse) => {
+                this._toast.fail('评论失败', 1000, () => {
+                    this.navCtrl.back()
+                })
+            }
+        );
     }
 
     back() {

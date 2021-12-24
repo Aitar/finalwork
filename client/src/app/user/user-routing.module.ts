@@ -39,7 +39,15 @@ const routes: Routes = [
     {
         path: 'avatar',
         loadChildren: () => import('./avatar/avatar.module').then(m => m.AvatarPageModule)
-    }
+    },
+  {
+    path: 'collect',
+    loadChildren: () => import('./collect/collect.module').then( m => m.CollectPageModule)
+  },
+  {
+    path: 'recent',
+    loadChildren: () => import('./recent/recent.module').then( m => m.RecentPageModule)
+  }
 ];
 
 @NgModule({

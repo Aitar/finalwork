@@ -1,0 +1,13 @@
+<ion-button
+        fill="outline"
+        style="position: relative; top: 30%;"
+        *ngIf="!this.psgService.editPsg.headerImgUrl"
+        (click)="onPickImage()">
+    <ion-icon name="add-outline"></ion-icon>
+    添加封面
+</ion-button>
+<img
+        *ngIf="this.psgService.editPsg.headerImgUrl"
+        [src]="serverUrl + '/psg/img/' + this.psgService.editPsg.id + '/' + this.psgService.editPsg.headerImgUrl"
+        (click)="onPickImage()"
+/>

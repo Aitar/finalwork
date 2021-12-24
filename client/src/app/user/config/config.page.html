@@ -1,6 +1,6 @@
 <ion-header>
     <ion-toolbar>
-        <ion-title>config</ion-title>
+        <ion-title>设置</ion-title>
         <ion-buttons slot="start">
             <ion-back-button defaultHref="/tabs/tab3"></ion-back-button>
         </ion-buttons>
@@ -8,5 +8,16 @@
 </ion-header>
 
 <ion-content>
-
+    <List>
+        <ListItem multipleLine [extra]="android">
+            <p style="color: grey">记录我的浏览记录</p>
+        </ListItem>
+    </List>
+    <ng-template #android>
+        <Switch
+                [checked]="dataService.isTrace"
+                [platform]="'android'"
+                (onChange)="changeTrace()"
+        ></Switch>
+    </ng-template>
 </ion-content>

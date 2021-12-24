@@ -7,17 +7,25 @@
     </ion-toolbar>
 </ion-header>
 
-<ion-content>
-    <ion-list>
+<ion-content *ngIf="!isLoading">
+    <ion-list *ngIf="loadedCom.length > 0">
         <ion-item *ngFor="let com of loadedCom">
             <ion-grid>
                 <app-com-block [curCom]="com"></app-com-block>
             </ion-grid>
         </ion-item>
     </ion-list>
+    <ion-grid>
+    <ion-row *ngIf="loadedCom.length == 0" style="padding: 0">
+        <ion-col size="12" align="center">
+            <img src="../../../assets/img/empty.png" style="width: 160px; height: 100px; margin-top: 40%">
+            <p align="center" style="color: darkgrey">现在没有评论呢，写下第一条评论吧！</p>
+        </ion-col>
+    </ion-row>
+    </ion-grid>
 </ion-content>
 
-<ion-footer>
+<ion-footer *ngIf="!isLoading">
     <ion-button expand="full"
                 [routerLink]="'./psg-com-create/' + curPsgId"
     >评论

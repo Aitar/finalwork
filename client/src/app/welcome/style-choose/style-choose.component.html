@@ -1,0 +1,23 @@
+<WhiteSpace [size]="'lg'"></WhiteSpace>
+<WhiteSpace [size]="'lg'"></WhiteSpace>
+<img src="../../../assets/img/style-choose.png" style="height: 80%; width: 80%">
+
+<WhiteSpace [size]="'lg'"></WhiteSpace>
+<WhiteSpace [size]="'lg'"></WhiteSpace>
+<WhiteSpace [size]="'lg'"></WhiteSpace>
+<p>
+    <ion-button size="small" fill="outline" *ngIf="!isStreet" (click)="street()">街头</ion-button>
+    <ion-button class="abc" size="small" *ngIf="isStreet" (click)="street()">街头</ion-button>
+    <ion-button size="small" fill="outline" *ngIf="!isBusiness" (click)="business()">商务</ion-button>
+    <ion-button class="abc" size="small" *ngIf="isBusiness" (click)="business()">商务</ion-button>
+    <ion-button size="small" fill="outline" *ngIf="!isHybird" (click)="hybird()">混搭</ion-button>
+    <ion-button class="abc" size="small" *ngIf="isHybird" (click)="hybird()">混搭</ion-button>
+</p>
+<p>
+    <ion-button size="small" fill="outline" *ngIf="!isKorea" (click)="korea()">韩系</ion-button>
+    <ion-button class="abc" size="small" *ngIf="isKorea" (click)="korea()">韩系</ion-button>
+    <ion-button size="small" fill="outline" *ngIf="!isHouse" (click)="house()">居家</ion-button>
+    <ion-button class="abc" size="small" *ngIf="isHouse" (click)="house()">居家</ion-button>
+    <ion-button size="small" fill="outline" *ngIf="!isOther" (click)="other()">另类</ion-button>
+    <ion-button class="abc" size="small" *ngIf="isOther" (click)="other()">另类</ion-button>
+</p>

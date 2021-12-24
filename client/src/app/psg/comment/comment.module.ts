@@ -19,6 +19,9 @@ import {NgZorroAntdMobileModule} from 'ng-zorro-antd-mobile';
         CommentPageRoutingModule,
         NgZorroAntdMobileModule
     ],
+    exports: [
+        FlwComBlockComponent
+    ],
     declarations: [CommentPage, ComBlockComponent, FlwComBlockComponent]
 })
 export class CommentPageModule {

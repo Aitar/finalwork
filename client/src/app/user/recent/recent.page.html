@@ -1,0 +1,29 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>最近浏览文章</ion-title>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content *ngIf="!loading">
+  <ion-grid align="center" *ngIf="!this.dataService.isTrace">
+    <WhiteSpace></WhiteSpace>
+    <ion-row><ion-col>你已经暂停了历史记录</ion-col></ion-row>
+    <ion-row><ion-col><ion-button (click)="keepTrace()">继续历史记录</ion-button></ion-col></ion-row>
+  </ion-grid>
+  <List [className]="'psg-list'" style="padding: 0" *ngIf="loadedPsgs.length > 0">
+    <div *ngFor="let psg of loadedPsgs" style="padding: 0">
+      <app-psg-block ngDefaultControl [psg]="psg"></app-psg-block>
+    </div>
+  </List>
+  <ion-grid>
+    <ion-row *ngIf="loadedPsgs.length == 0" style="padding: 0">
+      <ion-col size="12" align="center">
+        <img src="../../../assets/img/empty.png" style="width: 160px; height: 100px; margin-top: 40%">
+        <p align="center" style="color: darkgrey">你还没有看过文章呢，去看看吧！</p>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>

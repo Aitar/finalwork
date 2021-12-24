@@ -1,16 +1,73 @@
 <ion-header>
     <ion-toolbar>
-        <ion-title>flw-com-page</ion-title>
+        <ion-title>评论回复</ion-title>
         <ion-buttons slot="start">
             <ion-back-button defaultHref="/tabs/tab1"></ion-back-button>
         </ion-buttons>
     </ion-toolbar>
 </ion-header>
 
-<ion-content>
-    <ion-grid>
-        <ion-row>
+<ion-content *ngIf="!loading">
+    <ion-grid style="border-bottom: grey">
+        <ion-row *ngIf="comOwner">
+            <!--    头像-->
+            <ion-col size="2">
+                <ion-avatar>
+                    <img [src]="serverUrl + '/user/avatar/' + comOwner.id">
+                </ion-avatar>
+            </ion-col>
+            <!--    名称以及评论内容-->
+            <ion-col size="10">
+                <ion-grid id="content">
+                    <!--        名称以及各种标签-->
+                    <ion-row>
+                        <ion-col size="12">
+                            <div *ngIf="!self">{{comOwner.nickName}}</div>
+                            <div *ngIf="self">我</div>
+                        </ion-col>
+                    </ion-row>
+                    <!--        评论内容-->
+                    <ion-row>
+                        <ion-col size="12" style="color: grey; font-size: 13px">
+                            {{curCom.content}}
+                        </ion-col>
+                    </ion-row>
+                    <!--        评论时间、点赞数量、以及回复数量-->
+                    <ion-row>
+                        <ion-col size="6" class="btm">
+                            {{curCom.time}}
+                        </ion-col>
+                        <ion-col size="3" class="btm" (click)="like()">
+                            <ion-icon name="thumbs-up-outline" size="small" [hidden]="isLiked"></ion-icon>
+                            <ion-icon name="thumbs-up-sharp" size="small" [hidden]="!isLiked"></ion-icon>
+                            {{curCom.likeNum}}
+                        </ion-col>
 
+                        <ion-col size="3" class="btm">
+                            <!--              <a [routerLink]="'./flw-com-page/' + curCom.cid">-->
+                            <ion-icon name="chatbox-outline" size="small"></ion-icon>
+                            {{curCom.followNum}}
+                            <!--              </a>-->
+                        </ion-col>
+                    </ion-row>
+                </ion-grid>
+            </ion-col>
         </ion-row>
     </ion-grid>
+    <ion-grid style="position: relative; top: 30%" *ngIf="loadedFlwCom.length <= 0">
+        <ion-row>
+            <ion-col size="6" offset="3">
+                <p>此评论还没有回复呢，</p>
+                <p>来<a [routerLink]="'../../comment-create/' + curCom.id">写一条回复</a>吧</p>
+            </ion-col>
+        </ion-row>
+    </ion-grid>
+    <List *ngIf="loadedFlwCom.length > 0">
+        <div *ngFor="let flwCom of loadedFlwCom">
+            <app-flw-com-block [curFlwCom]="flwCom"></app-flw-com-block>
+        </div>
+    </List>
 </ion-content>
+<ion-footer *ngIf="!loading">
+    <ion-button expand="block" [routerLink]="'../../comment-create/' + curCom.id">回复评论</ion-button>
+</ion-footer>

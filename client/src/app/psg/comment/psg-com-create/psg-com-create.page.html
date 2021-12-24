@@ -1,4 +1,4 @@
-<ion-toolbar>
+<ion-toolbar *ngIf="!isloading">
     <ion-buttons slot="primary">
         <ion-button (click)="back()">
             <ion-icon slot="icon-only" name="close"></ion-icon>
@@ -11,12 +11,12 @@
         </ion-row>
         <ion-row>
             <!--      文章作者-->
-            <ion-col offset="1" style="font-size: 12px; color: grey">作者：{{tarUser.nickname}}</ion-col>
+            <ion-col offset="1" style="font-size: 12px; color: grey">作者：{{tarUser.nickName}}</ion-col>
         </ion-row>
     </ion-grid>
 </ion-toolbar>
 
-<ion-content>
+<ion-content *ngIf="!isloading">
     <ion-grid>
         <ion-row>
             <ion-col>
@@ -32,6 +32,6 @@
     </ion-grid>
 </ion-content>
 
-<ion-footer>
+<ion-footer *ngIf="!isloading">
     <ion-button expand="block" (click)="submitComment()">提交评论</ion-button>
 </ion-footer>

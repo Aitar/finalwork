@@ -17,19 +17,40 @@
         (onTabClick)="onTabClick($event)"
 >
     <TabPane [title]="'已发布'">
-        <ion-content>
-            <List [className]="'psg-list'" style="padding: 0">
+        <ion-content *ngIf="!isLoading">
+            <List [className]="'psg-list'" style="padding: 0" *ngIf="loadedPsgs.length > 0">
                 <div *ngFor="let psg of loadedPsgs" style="padding: 0">
                     <app-psg-block ngDefaultControl [psg]="psg"></app-psg-block>
                 </div>
             </List>
+            <ion-grid>
+                <ion-row *ngIf="loadedPsgs.length == 0" style="padding: 0">
+                    <ion-col size="12" align="center">
+                        <img src="../../../assets/img/empty.png" style="width: 160px; height: 100px; margin-top: 40%">
+                        <p align="center" style="color: darkgrey">你还没有文章呢，去<a routerLink="/tabs/tab2">写一篇文章吧</a>！</p>
+                    </ion-col>
+                </ion-row>
+            </ion-grid>
         </ion-content>
     </TabPane>
+
     <TabPane [title]="'草稿'">
 
-        <div style="display: flex; align-items: center;justify-content: center;height: 150px;background-color: #fff">
-            Content of second tab
-        </div>
+        <ion-content *ngIf="!isLoadingD">
+            <List [className]="'psg-list'" style="padding: 0" *ngIf="loadedDrafts.length > 0">
+                <div *ngFor="let psg of loadedDrafts" style="padding: 0">
+                    <app-psg-block ngDefaultControl [psg]="psg"></app-psg-block>
+                </div>
+            </List>
+            <ion-grid>
+                <ion-row *ngIf="loadedDrafts.length == 0" style="padding: 0">
+                    <ion-col size="12" align="center">
+                        <img src="../../../assets/img/empty.png" style="width: 160px; height: 100px; margin-top: 40%">
+                        <p align="center" style="color: darkgrey">你还没有文章呢，去<a routerLink="/tabs/tab2">写一篇文章吧</a>！</p>
+                    </ion-col>
+                </ion-row>
+            </ion-grid>
+        </ion-content>
     </TabPane>
 </Tabs>
 <WhiteSpace></WhiteSpace>

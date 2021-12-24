@@ -3,6 +3,10 @@ import {MyComment} from '../../../../assets/model/MyComment.model';
 import {ActionSheetService} from 'ng-zorro-antd-mobile';
 import {DataService} from '../../../service/data.service';
 import {User} from '../../../../assets/model/User.model';
+import {FlwComment} from '../../../../assets/model/FlwComments.model';
+import {UserService} from '../../../service/user.service';
+import {serverUrl} from '../../../../assets/config';
+import {AuthService} from '../../../service/auth.service';
 
 @Component({
     selector: 'app-flw-com-block',
@@ -11,15 +15,24 @@ import {User} from '../../../../assets/model/User.model';
 })
 export class FlwComBlockComponent implements OnInit {
 
-    @Input() curCom: MyComment;
+    @Input() curFlwCom: FlwComment;
     curUser: User;
+    self = false;
+    serverUrl = serverUrl;
+    loading: boolean = false;
 
     constructor(private _actionSheet: ActionSheetService,
-                private dataService: DataService) {
+                private userService: UserService,
+                private authService: AuthService) {
     }
 
     ngOnInit() {
-
+        this.loading = true;
+        this.userService.getUser(this.curFlwCom.owner).subscribe((user: User) => {
+            this.curUser = user;
+            this.self = this.curUser.id == this.authService.curUser.id;
+            this.loading = false;
+        })
     }
 
     like() {

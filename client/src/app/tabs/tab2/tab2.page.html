@@ -1,4 +1,4 @@
-<ion-content>
+<ion-content *ngIf="!loading">
     <ion-grid>
         <!--  标题正文输入-->
         <ion-row class="bod">
@@ -8,60 +8,47 @@
                         [clear]="true"
                         [placeholder]="'请在这输入你的标题'"
                         [moneyKeyboardAlign]="'left'"
-                        [(ngModel)]="psgTitle"
+                        [(ngModel)]="this.psgService.editPsg.title"
                 >
                 </InputItem>
-                <TextareaItem
-                        [rows]="12"
-                        [count]="20000"
-                        [placeholder]="'请在这输入文章正文内容'"
-                        [(ngModel)]="psgContent"
-                ></TextareaItem>
+                <ckeditor name="ckeditor"
+                          #ckeditor
+                          [(ngModel)]="this.psgService.editPsg.content"
+                          debounce="500"
+                          [config]="config"
+                          (change)="stepSave()"
+                          (focus)="unlock()"
+                > </ckeditor>
             </ion-col>
         </ion-row>
         <!--  输入工具栏-->
         <ion-row class="bod">
-            <ion-col size="1">
+            <ion-col size="3">
                 <ion-buttons>
-                    <ion-button>
-                        <ion-icon name="at-outline" slot="icon-only"></ion-icon>
-                    </ion-button>
-                </ion-buttons>
-            </ion-col>
-
-            <ion-col size="1" offset="1">
-                <ion-buttons>
-                    <ion-button>
+                    <ion-button (click)="uploadImage()">
                         <ion-icon name="image-outline" slot="icon-only"></ion-icon>
                     </ion-button>
                 </ion-buttons>
             </ion-col>
 
-            <ion-col size="1" offset="1">
+
+            <ion-col size="3" >
                 <ion-buttons>
-                    <ion-button>
-                        <ion-icon name="videocam-outline" slot="icon-only"></ion-icon>
+                    <ion-button (click)="stepBack()">
+                        <ion-icon name="arrow-undo-outline" slot="icon-only" ></ion-icon>
                     </ion-button>
                 </ion-buttons>
             </ion-col>
 
-            <ion-col size="1" offset="1">
+            <ion-col size="3">
                 <ion-buttons>
-                    <ion-button>
-                        <ion-icon name="arrow-undo-outline" slot="icon-only"></ion-icon>
+                    <ion-button (click)="stepForward()">
+                        <ion-icon name="arrow-redo-outline" slot="icon-only" ></ion-icon>
                     </ion-button>
                 </ion-buttons>
             </ion-col>
 
-            <ion-col size="1" offset="1">
-                <ion-buttons>
-                    <ion-button>
-                        <ion-icon name="arrow-redo-outline" slot="icon-only"></ion-icon>
-                    </ion-button>
-                </ion-buttons>
-            </ion-col>
-
-            <ion-col size="1" offset="1" *ngIf="online">
+            <ion-col size="3" *ngIf="online">
                 <ion-buttons>
                     <ion-button (click)="autoSave()">
                         <ion-icon name="sync-outline" slot="icon-only"></ion-icon>
@@ -70,7 +57,7 @@
             </ion-col>
 
 
-            <ion-col size="1" offset="1" *ngIf="!online">
+            <ion-col size="3" *ngIf="!online">
                 <ion-buttons>
                     <ion-button (click)="autoSave()">
                         <ion-icon name="cloud-offline-outline" slot="icon-only"></ion-icon>
@@ -86,13 +73,40 @@
                         请选择文章分类
                     </ion-col>
                 </ion-row>
-                <ion-row>
-                    <ion-col size="3" offset="1">
-                        <ion-button size="small" fill="outline">街头</ion-button>
+                <ion-row style="position: relative; left: 10px">
+                    <ion-col size="3">
+                        <ion-button size="small" fill="outline" *ngIf="!isStreet" (click)="street()">街头</ion-button>
+                        <ion-button class="abc" size="small" *ngIf="isStreet" (click)="street()">街头</ion-button>
                     </ion-col>
 
                     <ion-col size="3">
                         <ion-button size="small" fill="outline">盐系</ion-button>
+                    </ion-col>
+
+                    <ion-col size="3">
+                        <ion-button size="small" fill="outline">商务</ion-button>
+                    </ion-col>
+
+                    <ion-col size="3">
+                        <ion-button size="small" fill="outline">混搭</ion-button>
+                    </ion-col>
+                </ion-row>
+                <ion-row style="position: relative; left: 10px">
+                    <ion-col size="3">
+                        <ion-button size="small" fill="outline">日常</ion-button>
+                    </ion-col>
+
+                    <ion-col size="3">
+                        <ion-button size="small" fill="outline" *ngIf="!isHouse" (click)="house()">居家</ion-button>
+                        <ion-button class="abc" size="small" *ngIf="isHouse" (click)="house()">居家</ion-button>
+                    </ion-col>
+
+                    <ion-col size="3">
+                        <ion-button size="small" fill="outline">会议</ion-button>
+                    </ion-col>
+
+                    <ion-col size="3">
+                        <ion-button size="small" fill="outline">民族</ion-button>
                     </ion-col>
                 </ion-row>
             </ion-grid>
@@ -114,27 +128,24 @@
                                         <ion-col size="1">
                                             <ion-avatar
                                                     style="height: 25px; width: 25px; position: relative; right: 7px">
-                                                <img src="../../../assets/img/avatar.png">
+                                                <img [src]="serverUrl + '/user/avatar/' + curUser.id">
                                             </ion-avatar>
                                         </ion-col>
-                                        <ion-col size="10">sample</ion-col>
+                                        <ion-col size="10">{{curUser.nickName}}</ion-col>
                                     </ion-row>
 
                                     <ion-row>
-                                        <ion-col *ngIf="psgTitle">
-                                            {{psgTitle}}
+                                        <ion-col *ngIf="this.psgService.editPsg.title">
+                                            {{this.psgService.editPsg.title}}
                                         </ion-col>
-                                        <ion-col *ngIf="!psgTitle">
+                                        <ion-col *ngIf="!this.psgService.editPsg.title">
                                             <ion-skeleton-text style="width: 60%"></ion-skeleton-text>
                                         </ion-col>
                                     </ion-row>
 
                                     <ion-row align="center">
-                                        <ion-col size="12" style="height: 120px; background-color:#ebebeb">
-                                            <ion-button fill="outline" style="position: relative; top: 30%;">
-                                                <ion-icon name="add-outline"></ion-icon>
-                                                添加封面
-                                            </ion-button>
+                                        <ion-col size="12" style="height: 150px; background-color:#ebebeb; overflow:hidden;">
+                                            <app-image-picker></app-image-picker>
                                         </ion-col>
                                     </ion-row>
 
@@ -150,7 +161,6 @@
                                             <ion-skeleton-text style="width: 80%"></ion-skeleton-text>
                                         </ion-col>
                                     </ion-row>
-
                                 </ion-grid>
                             </ion-card-header>
                         </ion-card>
@@ -159,25 +169,6 @@
             </ion-grid>
         </ion-row>
         <!--  头图选择-->
-        <ion-row class="bod">
-            <ion-grid>
-                <ion-row>
-                    <ion-col offset="1" style="color: grey; padding-top: 5px">
-                        选择你的文章头图吧(非必选)
-                    </ion-col>
-                </ion-row>
-
-                <ion-row align="center">
-                    <ion-col size="10" offset="1" style="height: 180px; background-color:#ebebeb;">
-                        <ion-button fill="outline" style="position: relative; top: 38%;">
-                            <ion-icon name="add-outline"></ion-icon>
-                            添加头图
-                        </ion-button>
-                    </ion-col>
-                </ion-row>
-            </ion-grid>
-        </ion-row>
-
         <ion-row>
             <ion-col size="4" offset="1">
                 <ion-button expand="block" (click)="publish()">发布</ion-button>

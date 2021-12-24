@@ -1,56 +1,89 @@
 <ion-header>
     <ion-toolbar>
-        <ion-title>{{curPsg.title}}</ion-title>
+<!--        <ion-title>{{curPsg.title}}</ion-title>-->
         <ion-buttons slot="start">
             <ion-back-button defaultHref="/tabs/tab1"></ion-back-button>
         </ion-buttons>
     </ion-toolbar>
 </ion-header>
 
-<ion-content>
+<ion-content *ngIf="!isLoading">
 
     <ion-grid>
         <!--头像、名称与介绍-->
         <ion-row style="border-bottom: 1px #f2f3f6 solid;">
-            <ion-col size="2">
-                <ion-avatar style="width: 48px; height: 48px;"><img [src]="writer.avaterUrl"></ion-avatar>
+            <ion-col size="2" (click)="jumpToUserPage()">
+                <ion-avatar style="width: 48px; height: 48px;"><img [src]="serverUrl + '/user/avatar/' + writer.id"></ion-avatar>
             </ion-col>
-            <ion-col size="7">
+            <ion-col size="7" (click)="jumpToUserPage()">
                 <ion-grid>
                     <ion-row>
                         <ion-col>
-                            {{writer.nickname}}
+                            {{writer.nickName}}
                         </ion-col>
                     </ion-row>
                     <ion-row>
-                        <ion-col style="color: grey; font-size: 10px">
+                        <ion-col style="color: grey; font-size: 10px" *ngIf="writer.statement">
                             {{writer.statement}}
+                        </ion-col>
+                        <ion-col style="color: grey; font-size: 10px" *ngIf="!writer.statement">
+                            这个人很懒，什么也没写
                         </ion-col>
                     </ion-row>
                 </ion-grid>
             </ion-col>
-            <ion-col size="3">
+            <ion-col size="3" *ngIf="!isSelf">
                 <ion-button expand="block" (click)="follow()" [hidden]="isFollowed">关注</ion-button>
                 <ion-button expand="block" (click)="follow()" color="medium" [hidden]="!isFollowed">已关注</ion-button>
             </ion-col>
         </ion-row>
         <WhiteSpace size='md'></WhiteSpace>
         <!--    文章正文部分-->
-        <WingBlank>
+        <WingBlank></WingBlank>
             <ion-row style="border-bottom: 1px #f2f3f6 solid; color: #393939">
-                <ion-col>
-                    {{curPsg.content}}{{curPsg.content}}{{curPsg.content}}{{curPsg.content}}{{curPsg.content}}{{curPsg.content}}{{curPsg.content}}{{curPsg.content}}
+                <ion-col [innerHTML]="curPsg.content">
                 </ion-col>
             </ion-row>
             <WhiteSpace size='md'></WhiteSpace>
             <ion-row style="color: grey; font-size: 12px">
-                <ion-col>文章最后编辑于：2020.3.12 21:22</ion-col>
+                <ion-col>文章最后编辑于：{{curPsg.updatedTime}}</ion-col>
             </ion-row>
-        </WingBlank>
+
+        <WhiteSpace size='md'></WhiteSpace>
+
+        <ion-row *ngIf="!recsLoading">
+            <ion-col size="12">
+                <List>
+                    <ListItem
+                            routerLink="./psg-detail"
+                            no-padding
+                            *ngFor="let psg of recsPsgs"
+                    >
+                        <ion-grid>
+                            <ion-row>
+                                <ion-col size="1" offset="1">
+                                    <ion-avatar style="width: 24px; height: 24px;">
+                                        <img [src]="serverUrl + '/user/avatar/' + writer.id">
+                                    </ion-avatar>
+                                </ion-col>
+                                <ion-col size="10"><p style="position: relative; left: 10px">{{writer.nickName}}</p></ion-col>
+                            </ion-row>
+                            <ion-row>
+                                <ion-col offset="1">{{psg.title}}</ion-col>
+                            </ion-row>
+                            <ion-row style="font-size: 12px">
+                                <ion-col size="11" offset="1">最后编辑：{{psg.updatedTime}}</ion-col>
+                            </ion-row>
+                        </ion-grid>
+
+                    </ListItem>
+                </List>
+            </ion-col>
+        </ion-row>
     </ion-grid>
 </ion-content>
 
-<ion-footer>
+<ion-footer *ngIf="!isLoading">
     <ion-toolbar>
 
         <!--        点赞-->
@@ -58,14 +91,14 @@
         <ion-button fill="clear" (click)="like()">
             <ion-icon name="thumbs-up-sharp" *ngIf="isliked"></ion-icon>
             <ion-icon name="thumbs-up-outline" *ngIf="!isliked"></ion-icon>
-            {{curPsg.likeNumber}}
+            {{curPsg.liked}}
         </ion-button>
 
         <!--        评论-->
 
         <ion-button fill="clear" routerLink="./comment">
             <ion-icon name="chatbox-outline"></ion-icon>
-            {{curPsg.commentsNumber}}
+            {{curPsg.comments}}
         </ion-button>
 
         <!--        收藏-->

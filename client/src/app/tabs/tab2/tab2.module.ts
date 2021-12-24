@@ -6,6 +6,7 @@ import {FormsModule} from '@angular/forms';
 import {Tab2Page} from './tab2.page';
 import {CKEditorModule} from 'ng2-ckeditor';
 import {NgZorroAntdMobileModule} from 'ng-zorro-antd-mobile';
+import {ImagePickerComponent} from './image-picker/image-picker.component';
 
 @NgModule({
     imports: [
@@ -14,9 +15,9 @@ import {NgZorroAntdMobileModule} from 'ng-zorro-antd-mobile';
         FormsModule,
         RouterModule.forChild([{path: '', component: Tab2Page}]),
         CKEditorModule,
-        NgZorroAntdMobileModule
+        NgZorroAntdMobileModule,
     ],
-    declarations: [Tab2Page]
+    declarations: [Tab2Page, ImagePickerComponent]
 })
 export class Tab2PageModule {
 }

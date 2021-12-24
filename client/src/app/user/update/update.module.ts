@@ -7,13 +7,15 @@ import {IonicModule} from '@ionic/angular';
 import {UpdatePageRoutingModule} from './update-routing.module';
 
 import {UpdatePage} from './update.page';
+import {NgZorroAntdMobileModule} from 'ng-zorro-antd-mobile';
 
 @NgModule({
     imports: [
         CommonModule,
         FormsModule,
         IonicModule,
-        UpdatePageRoutingModule
+        UpdatePageRoutingModule,
+        NgZorroAntdMobileModule
     ],
     declarations: [UpdatePage]
 })

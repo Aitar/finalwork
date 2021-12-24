@@ -1,10 +1,9 @@
 export class LikeMap {
-    id: number;
+    id: string;
     uid: string;
     pid: string;
 
-
-    constructor(id: number, uid: string, pid: string) {
+    allArgs(id: string, uid: string, pid: string) {
         this.id = id;
         this.uid = uid;
         this.pid = pid;

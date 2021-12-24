@@ -7,13 +7,15 @@ import {IonicModule} from '@ionic/angular';
 import {AvatarPageRoutingModule} from './avatar-routing.module';
 
 import {AvatarPage} from './avatar.page';
+import {NgZorroAntdMobileModule} from 'ng-zorro-antd-mobile';
 
 @NgModule({
     imports: [
         CommonModule,
         FormsModule,
         IonicModule,
-        AvatarPageRoutingModule
+        AvatarPageRoutingModule,
+        NgZorroAntdMobileModule
     ],
     declarations: [AvatarPage]
 })

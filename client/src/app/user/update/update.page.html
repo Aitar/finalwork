@@ -9,11 +9,31 @@
 </ion-header>
 
 <ion-content>
-    <form>
-        <ion-grid></ion-grid>
-    </form>
+    <List [className]="'my-list'">
+        <ListItem (onClick)="avatarChange()" [arrow]="'horizontal'">头像</ListItem>
+        <InputItem [(ngModel)]="this.curUser.statement" [content]="'签名'"></InputItem>
+    </List>
+    <WhiteSpace></WhiteSpace>
+    <List>
+        <InputItem [(ngModel)]="this.curUser.nickName" [content]="'昵称'"></InputItem>
+        <InputItem [(ngModel)]="this.curUser.gender" [content]="'性别'" (click)="showActionSheet(message)" [disabled]="true"></InputItem>
+        <ListItem
+                DatePicker
+                [extra]="currentDateFormat(value, 'yyyy-mm-dd')"
+                [arrow]="'horizontal'"
+                [mode]="'date'"
+                [(ngModel)]="value"
+                (onOk)="onOk($event)"
+        >
+            生日
+        </ListItem>
+    </List>
+    <ng-template #message>
+        <PickerView [data]="seasons" [cascade]="false" [(ngModel)]="gender"></PickerView>
+        <div Button (onClick)="saveGender()">确定</div>
+    </ng-template>
 </ion-content>
 
 <ion-footer>
-    <ion-button expand="block">提交修改</ion-button>
+    <ion-button expand="block" (click)="submit()">提交修改</ion-button>
 </ion-footer>

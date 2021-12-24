@@ -1,8 +1,8 @@
-<ion-row *ngIf="curCom">
+<ion-row *ngIf="comOwner">
     <!--    头像-->
     <ion-col size="2">
         <ion-avatar>
-            <img [src]="curUser.avaterUrl">
+            <img [src]="serverUrl + '/user/avatar/' + comOwner.id">
         </ion-avatar>
     </ion-col>
     <!--    名称以及评论内容-->
@@ -11,7 +11,8 @@
             <!--        名称以及各种标签-->
             <ion-row>
                 <ion-col size="12">
-                    {{curUser.nickname}}
+                    <div *ngIf="!self">{{comOwner.nickName}}</div>
+                    <div *ngIf="self">我</div>
                 </ion-col>
             </ion-row>
             <!--        评论内容-->
@@ -28,7 +29,7 @@
                 <ion-col size="3" class="btm" (click)="like()">
                     <ion-icon name="thumbs-up-outline" size="small" [hidden]="isLiked"></ion-icon>
                     <ion-icon name="thumbs-up-sharp" size="small" [hidden]="!isLiked"></ion-icon>
-                    {{curCom.likedNum}}
+                    {{curCom.likeNum}}
                 </ion-col>
 
                 <ion-col size="3" class="btm" (click)="viewFollows(message)">
@@ -42,7 +43,7 @@
     </ion-col>
 </ion-row>
 
-<ion-row *ngIf="!curCom">
+<ion-row *ngIf="!comOwner">
     <!--    头像-->
     <ion-col size="2">
         <ion-avatar>
@@ -83,7 +84,7 @@
 <ng-template #message>
     <div class="am-action-sheet-message">
         <ion-button expand="block" fill="clear" color="white" class="pop-btn"
-                    [routerLink]="'./flw-com-page/' + curCom.cid"
+                    [routerLink]="'./flw-com-page/' + curCom.id"
         >
             <ion-grid>
                 <ion-row>
@@ -96,7 +97,7 @@
         </ion-button>
 
         <ion-button expand="block" fill="clear" color="white" class="pop-btn"
-                    [routerLink]="'./comment-create/' + curCom.cid"
+                    [routerLink]="'./comment-create/' + curCom.id"
         >
             <ion-grid>
                 <ion-row>
@@ -109,7 +110,7 @@
         </ion-button>
 
         <ion-button expand="block" fill="clear" color="white" class="pop-btn"
-                    [routerLink]="'/report/comment/' + curCom.cid"
+                    [routerLink]="'/report/comment/' + curCom.id"
         >
             <ion-grid>
                 <ion-row>
@@ -117,6 +118,19 @@
                         <ion-icon name="warning-outline"></ion-icon>
                     </ion-col>
                     <ion-col size="1" offset="1">举报</ion-col>
+                </ion-row>
+            </ion-grid>
+        </ion-button>
+
+        <ion-button expand="block" fill="clear" color="white" class="pop-btn"
+                    (click)="delete()"
+        >
+            <ion-grid>
+                <ion-row>
+                    <ion-col size="1">
+                        <ion-icon name="trash-outline"></ion-icon>
+                    </ion-col>
+                    <ion-col size="1" offset="1">删除评论</ion-col>
                 </ion-row>
             </ion-grid>
         </ion-button>

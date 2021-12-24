@@ -1,0 +1,50 @@
+<ListItem
+        no-padding
+        *ngIf="!isLoading"
+>
+    <ion-grid>
+        <ion-row>
+            <ion-col size="1" offset="1">
+                <ion-avatar style="width: 24px; height: 24px;">
+                    <img [src]="serverUrl + '/user/avatar/' + writer.id">
+                </ion-avatar>
+            </ion-col>
+            <ion-col size="6">{{writer.nickName}}</ion-col>
+            <ion-col size="4">
+                <ion-button
+                        *ngIf="isCollected"
+                        size="small"
+                        color="medium"
+                        style="height: 25px"
+                        (click)="undoCollect()">
+                    取消收藏
+                </ion-button>
+                <ion-button
+                        *ngIf="!isCollected"
+                        size="small"
+                        style="height: 25px"
+                        (click)="collect()">
+                    收藏
+                </ion-button>
+            </ion-col>
+        </ion-row>
+        <ion-row>
+            <ion-col offset="1" [routerLink]="'/psg/' + psg.id">{{psg.title}}</ion-col>
+        </ion-row>
+        <ion-row style="font-size: 12px">
+            <ion-col size="11" offset="1">最后编辑：{{psg.updatedTime}}</ion-col>
+        </ion-row>
+        <ion-row style="font-size: 10px">
+            <ion-col size="3" offset="1">
+                <ion-icon name="thumbs-up-outline" size="small"></ion-icon>
+                {{psg.liked}}</ion-col>
+            <ion-col size="3">
+                <ion-icon name="chatbox-outline" size="small"></ion-icon>
+                {{psg.comments}}</ion-col>
+            <ion-col size="3">
+                <ion-icon name="eye-outline" size="small"></ion-icon>
+                {{psg.viewedTime}}</ion-col>
+        </ion-row>
+    </ion-grid>
+
+</ListItem>

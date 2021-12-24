@@ -15,6 +15,9 @@ import {NgZorroAntdMobileModule} from 'ng-zorro-antd-mobile';
         RouterModule.forChild([{path: '', component: Tab1Page}]),
         NgZorroAntdMobileModule
     ],
+    exports: [
+        PsgBlockComponent
+    ],
     declarations: [Tab1Page, PsgBlockComponent]
 })
 export class Tab1PageModule {

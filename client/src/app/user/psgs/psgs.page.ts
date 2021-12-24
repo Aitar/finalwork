@@ -1,6 +1,8 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, ViewChild, ViewChildren} from '@angular/core';
 import {Passage} from '../../../assets/model/Passage.model';
-import {mockPassges} from '../../../assets/mockData/mock-passages';
+import {PsgService} from '../../service/psg.service';
+import {AuthService} from '../../service/auth.service';
+import {PsgBlockComponent} from './psg-block/psg-block.component';
 
 @Component({
     selector: 'app-psgs',
@@ -8,17 +10,39 @@ import {mockPassges} from '../../../assets/mockData/mock-passages';
     styleUrls: ['./psgs.page.scss'],
 })
 export class PsgsPage implements OnInit {
+    index = 1;
     loadedPsgs: Passage[] = [];
+    loadedDrafts: Passage[] = [];
+    isLoading = false;
+    isLoadingD = false;
 
-    constructor() {
+    @ViewChildren(PsgBlockComponent)
+    private psgBlockComponent: PsgBlockComponent;
+
+    constructor(private psgService: PsgService,
+                private authService: AuthService) {
     }
 
     ngOnInit() {
-        this.loadedPsgs = mockPassges;
+        this.isLoading = true;
+        this.psgService.getPsgsByUID(this.authService.curUser.id, 0).subscribe(() => {
+            this.psgService.ppsgs.subscribe(passages => {
+                this.loadedPsgs = passages;
+                this.isLoading = false;
+            })
+        })
+
+        this.isLoadingD = true;
+        this.psgService.getPsgsByUID(this.authService.curUser.id, -1).subscribe(() => {
+            this.psgService.ppsgs.subscribe(passages => {
+                console.log(passages)
+                this.loadedDrafts = passages;
+                this.isLoadingD = false;
+            })
+        })
     }
 
-    flag = true;
-    index = 1;
+
 
     onChange(item) {
         console.log('onChange', item);

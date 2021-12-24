@@ -18,6 +18,9 @@ import {PsgBlockComponent} from './psg-block/psg-block.component';
         PsgsPageRoutingModule,
         NgZorroAntdMobileModule
     ],
+    exports: [
+        PsgBlockComponent
+    ],
     declarations: [PsgsPage, PsgBlockComponent]
 })
 export class PsgsPageModule {

@@ -1,22 +1,22 @@
 export class MyComment {
-    cid: string;
+    id: string;
     owner: string;
-    targetPsg: string;
+    tarPsg: string;
     content: string;
     time: string;
     followNum: number;
-    likedNum: number;
+    likeNum: number;
     hotIdx: number;
 
 
-    constructor(cid: string, owner: string, targetPsg: string, content: string, time: string, followNum: number, likedNum: number, hotIdx: number) {
-        this.cid = cid;
+    allArgs(id: string, owner: string, tarPsg: string, content: string, time: string, followNum: number, likeNum: number, hotIdx: number) {
+        this.id = id;
         this.owner = owner;
-        this.targetPsg = targetPsg;
+        this.tarPsg = tarPsg;
         this.content = content;
         this.time = time;
         this.followNum = followNum;
         this.hotIdx = hotIdx;
-        this.likedNum = likedNum;
+        this.likeNum = likeNum;
     }
 }

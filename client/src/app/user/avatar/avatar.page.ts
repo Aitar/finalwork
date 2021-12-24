@@ -5,39 +5,31 @@ import {DataService} from '../../service/data.service';
 import {NavController} from '@ionic/angular';
 import {ActivatedRoute} from '@angular/router';
 import {ActionSheetService} from 'ng-zorro-antd-mobile';
+import {AuthService} from '../../service/auth.service';
+import {serverUrl} from '../../../assets/config';
 
 @Component({
     selector: 'app-avatar',
     templateUrl: './avatar.page.html',
     styleUrls: ['./avatar.page.scss'],
 })
-export class AvatarPage implements OnInit, OnDestroy {
+export class AvatarPage implements OnInit{
     curUser: User;
-    userSub: Subscription;
+    serverUrl = serverUrl;
+    isloading = true;
 
     constructor(private dataService: DataService,
+                private authService: AuthService,
                 private navCtrl: NavController,
                 private route: ActivatedRoute,
                 private _actionSheet: ActionSheetService) {
     }
 
     ngOnInit() {
-        this.route.paramMap.subscribe(paramMap => {
-            if (!paramMap.has('userId')) {
-                //获取信息用户失败
-                this.navCtrl.back();
-                return;
-            }
-
-            this.userSub = this.dataService.getUser(paramMap.get('userId')).subscribe(user => {
-                this.curUser = user
-            });
-        });
-
+        this.curUser = this.authService.curUser;
     }
 
-    ngOnDestroy(): void {
-        if (this.userSub)
-            this.userSub.unsubscribe();
+    loaded(){
+        this.isloading = !this.isloading;
     }
 }

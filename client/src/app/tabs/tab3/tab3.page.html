@@ -4,20 +4,20 @@
             <ion-col>
                 <List [className]="'my-list'">
                     <!--          头像以及用户名-->
-                    <ListItem multipleLine (onClick)="this.router.navigate(['/', 'user', curUser.userId])">
+                    <ListItem multipleLine (onClick)="this.router.navigate(['/', 'user', curUser.id])">
                         <ion-grid>
                             <ion-row>
                                 <ion-col size="3">
                                     <ion-avatar>
-                                        <img [src]="curUser.avaterUrl" style="width: 60px; height: 60px">
+                                        <img [src]="serverUrl + '/user/avatar/' + curUser.id" style="width: 60px; height: 60px">
                                     </ion-avatar>
                                 </ion-col>
                                 <ion-col size="9">
-                                    {{curUser.nickname}}
+                                    {{curUser.nickName}}
                                     <Brief style="font-size: 10px"
                                            *ngIf="curUser.statement">{{curUser.statement}}</Brief>
                                     <Brief style="font-size: 10px"
-                                           *ngIf="!curUser.statement">{{curUser.statement}}</Brief>
+                                           *ngIf="!curUser.statement">这个人很懒，什么也没写</Brief>
                                 </ion-col>
                             </ion-row>
                         </ion-grid>
@@ -27,10 +27,10 @@
                         <ion-grid>
                             <ion-row align="center">
                                 <ion-col size="3">
-                                    <a [routerLink]="'/user/' + curUser.userId + '/psgs'">
+                                    <a [routerLink]="'/user/' + curUser.id + '/psgs'">
                                         <ion-grid>
                                             <ion-row>
-                                                <ion-col>35</ion-col>
+                                                <ion-col>{{curUser.psgNum}}</ion-col>
                                             </ion-row>
                                             <ion-row>
                                                 <ion-col class="pe-label">文章</ion-col>
@@ -39,10 +39,10 @@
                                     </a>
                                 </ion-col>
                                 <ion-col size="3">
-                                    <a [routerLink]="'/user/' + curUser.userId + '/flws'">
+                                    <a [routerLink]="'/user/' + curUser.id + '/flws'">
                                         <ion-grid>
                                             <ion-row>
-                                                <ion-col>35</ion-col>
+                                                <ion-col>{{curUser.follows}}</ion-col>
                                             </ion-row>
                                             <ion-row>
                                                 <ion-col class="pe-label">关注</ion-col>
@@ -51,10 +51,10 @@
                                     </a>
                                 </ion-col>
                                 <ion-col size="3">
-                                    <a [routerLink]="'/user/' + curUser.userId + '/fans'">
+                                    <a [routerLink]="'/user/' + curUser.id + '/fans'">
                                         <ion-grid>
                                             <ion-row>
-                                                <ion-col>8815</ion-col>
+                                                <ion-col>{{curUser.followed}}</ion-col>
                                             </ion-row>
                                             <ion-row>
                                                 <ion-col class="pe-label">粉丝</ion-col>
@@ -63,10 +63,10 @@
                                     </a>
                                 </ion-col>
                                 <ion-col size="3">
-                                    <a [routerLink]="'/user/' + curUser.userId + '/fans'">
+                                    <a [routerLink]="'/user/' + curUser.id + '/collect'">
                                         <ion-grid>
                                             <ion-row>
-                                                <ion-col>515</ion-col>
+                                                <ion-col>{{curUser.collectNum}}</ion-col>
                                             </ion-row>
                                             <ion-row>
                                                 <ion-col class="pe-label">收藏</ion-col>
@@ -83,7 +83,7 @@
                     <ListItem
                             [thumb]="icon1"
                             [arrow]="'horizontal'"
-                            (onClick)="this.router.navigate(['/', 'user', curUser.userId, 'update'])"
+                            (onClick)="this.router.navigate(['/', 'user', curUser.id, 'update'])"
                     >
                         <ng-template #icon1>
                             <ion-icon name="person-outline" size="large" color="medium"></ion-icon>
@@ -94,7 +94,7 @@
                     <ListItem
                             [thumb]="icon2"
                             [arrow]="'horizontal'"
-                            (onClick)="this.router.navigate(['/', 'user', curUser.userId, 'update'])"
+                            (onClick)="this.router.navigate(['/', 'user', curUser.id, 'update'])"
                     >
                         <ng-template #icon2>
                             <ion-icon name="reader-outline" size="large" color="medium"></ion-icon>
@@ -103,9 +103,20 @@
                     </ListItem>
 
                     <ListItem
+                            [thumb]="icon6"
+                            [arrow]="'horizontal'"
+                            (onClick)="this.router.navigate(['/', 'user', curUser.id, 'recent'])"
+                    >
+                        <ng-template #icon6>
+                            <ion-icon name="eye-outline" size="large" color="medium"></ion-icon>
+                        </ng-template>
+                        <p>最近浏览文章</p>
+                    </ListItem>
+
+                    <ListItem
                             [thumb]="icon3"
                             [arrow]="'horizontal'"
-                            (onClick)="this.router.navigate(['/', 'user', curUser.userId, 'config'])"
+                            (onClick)="this.router.navigate(['/', 'user', curUser.id, 'config'])"
                     >
                         <ng-template #icon3>
                             <ion-icon name="cog-outline" size="large" color="medium"></ion-icon>
@@ -116,7 +127,7 @@
                     <ListItem
                             [thumb]="icon4"
                             [arrow]="'horizontal'"
-                            (onClick)="this.router.navigate(['/', 'user', curUser.userId, 'config'])"
+                            (onClick)="this.router.navigate(['/', 'user', curUser.id, 'config'])"
                     >
                         <ng-template #icon4>
                             <ion-icon name="help-outline" size="large" color="medium"></ion-icon>
@@ -127,7 +138,7 @@
                     <ListItem
                             [thumb]="icon5"
                             [arrow]="'horizontal'"
-                            (onClick)="this.router.navigate(['/', 'user', curUser.userId, 'config'])"
+                            (onClick)="this.router.navigate(['/', 'user', curUser.id, 'config'])"
                     >
                         <ng-template #icon5>
                             <ion-icon name="heart-outline" size="large" color="medium"></ion-icon>

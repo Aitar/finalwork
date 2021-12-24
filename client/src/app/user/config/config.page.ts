@@ -1,4 +1,5 @@
 import {Component, OnInit} from '@angular/core';
+import {DataService} from '../../service/data.service';
 
 @Component({
     selector: 'app-config',
@@ -6,11 +7,14 @@ import {Component, OnInit} from '@angular/core';
     styleUrls: ['./config.page.scss'],
 })
 export class ConfigPage implements OnInit {
-
-    constructor() {
+    constructor(private dataService: DataService) {
     }
 
     ngOnInit() {
     }
 
+    changeTrace() {
+        this.dataService.isTrace = !this.dataService.isTrace;
+        console.log(this.dataService.isTrace);
+    }
 }

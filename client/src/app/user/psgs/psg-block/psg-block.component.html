@@ -6,24 +6,33 @@
     <ListItem
             routerLink="./psg-detail"
             no-padding
+            *ngIf="!isLoading"
     >
         <ion-grid>
             <ion-row>
-                <ion-col>{{psg.title}}</ion-col>
+                <ion-col size="1" offset="1">
+                    <ion-avatar style="width: 24px; height: 24px;">
+                        <img [src]="serverUrl + '/user/avatar/' + writer.id">
+                    </ion-avatar>
+                </ion-col>
+                <ion-col size="10"><p style="position: relative; left: 10px">{{writer.nickName}}</p></ion-col>
+            </ion-row>
+            <ion-row>
+                <ion-col offset="1">{{psg.title}}</ion-col>
             </ion-row>
             <ion-row style="font-size: 12px">
-                <ion-col size="12">最后编辑：2020-3-10 17:24</ion-col>
+                <ion-col size="11" offset="1">最后编辑：{{psg.updatedTime}}</ion-col>
             </ion-row>
             <ion-row style="font-size: 10px">
-                <ion-col size="4">
+                <ion-col size="3" offset="1">
                     <ion-icon name="thumbs-up-outline" size="small"></ion-icon>
-                    {{psg.likeNumber}}</ion-col>
-                <ion-col size="4">
+                    {{psg.liked}}</ion-col>
+                <ion-col size="3">
                     <ion-icon name="chatbox-outline" size="small"></ion-icon>
-                    {{psg.commentsNumber}}</ion-col>
-                <ion-col size="4">
+                    {{psg.comments}}</ion-col>
+                <ion-col size="3">
                     <ion-icon name="eye-outline" size="small"></ion-icon>
-                    {{psg.commentsNumber + psg.likeNumber}}</ion-col>
+                    {{psg.viewedTime}}</ion-col>
             </ion-row>
         </ion-grid>
 

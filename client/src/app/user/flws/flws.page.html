@@ -7,14 +7,14 @@
     </ion-toolbar>
 </ion-header>
 
-<ion-content>
-    <ion-list>
+<ion-content *ngIf="!isLoading">
+    <ion-list *ngIf="loadedUsers.length > 0">
         <ion-item *ngFor="let user of loadedUsers">
             <ion-grid>
                 <ion-row>
                     <ion-col size="3">
                         <ion-avatar style="width: 48px; height: 48px; position: relative; left: 10px">
-                            <img [src]="user.avaterUrl"/>
+                            <img [src]="serverUrl + '/user/avatar/' + user.id">
                         </ion-avatar>
                     </ion-col>
 
@@ -22,7 +22,7 @@
                         <ion-grid>
                             <ion-row>
                                 <ion-col size="8">
-                                    {{user.nickname}}
+                                    {{user.nickName}}
                                 </ion-col>
                                 <ion-col size="4">
                                     <ion-button
@@ -30,14 +30,26 @@
                                             size="small"
                                             style="margin: 0"
                                             color="medium"
-                                            (click)="leave()"
+                                            (click)="leave(user)"
+                                            *ngIf="user.email"
                                     >取消关注
+                                    </ion-button>
+                                    <ion-button
+                                            expand="block"
+                                            size="small"
+                                            style="margin: 0"
+                                            (click)="follow(user)"
+                                            *ngIf="!user.email"
+                                    >关注
                                     </ion-button>
                                 </ion-col>
                             </ion-row>
                             <ion-row>
-                                <ion-col style="font-size: 12px; color: grey">
-                                    {{user.email}}
+                                <ion-col style="font-size: 12px; color: grey" *ngIf="user.statement">
+                                    {{user.statement}}
+                                </ion-col>
+                                <ion-col style="font-size: 12px; color: grey" *ngIf="!user.statement">
+                                    这个人很懒，什么也没写
                                 </ion-col>
                             </ion-row>
                         </ion-grid>
@@ -46,4 +58,12 @@
             </ion-grid>
         </ion-item>
     </ion-list>
+    <ion-grid *ngIf="loadedUsers.length == 0">
+        <ion-row  style="padding: 0">
+            <ion-col size="12" align="center">
+                <img src="../../../assets/img/empty.png" style="width: 160px; height: 100px; margin-top: 40%">
+                <p align="center" style="color: darkgrey">你还没有关注任何人呢，去关注一个用户吧！</p>
+            </ion-col>
+        </ion-row>
+    </ion-grid>
 </ion-content>

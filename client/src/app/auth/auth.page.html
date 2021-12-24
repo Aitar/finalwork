@@ -1,17 +1,38 @@
 <ion-content>
-    <form #form="ngForm" (ngSubmit)="submit(form)" style="position: relative; top: 25%">
+    <form #form="ngForm" (ngSubmit)="submit(form)" style="position: relative; top: 5%">
         <ion-grid>
+            <ion-row>
+                <ion-col size="8" offset="3">
+                    <img src="../../assets/img/logo.png" width="170px" height="170px">
+                </ion-col>
+            </ion-row>
             <ion-row padding>
                 <ion-col size-sm="6" offset-sm="3">
                     <ion-item>
-                        <ion-label position="floating">邮箱</ion-label>
+                        <ion-label position="floating">邮 箱</ion-label>
                         <ion-input
                                 type="email"
-                                ngModel
+                                [(ngModel)] = email
                                 name="email"
                                 required
                                 email
                                 #emailCtrl="ngModel"
+                        ></ion-input>
+                    </ion-item>
+                </ion-col>
+            </ion-row>
+
+            <ion-row padding *ngIf="!isLogin">
+                <ion-col size-sm="6" offset-sm="3">
+                    <ion-item>
+                        <ion-label position="floating">昵称</ion-label>
+                        <ion-input
+                                type="text"
+                                ngModel
+                                name="nickname"
+                                required
+                                maxlength="18"
+                                #passwordCrtl="ngModel"
                         ></ion-input>
                     </ion-item>
                 </ion-col>
@@ -23,11 +44,24 @@
                         <ion-label position="floating">密 码</ion-label>
                         <ion-input
                                 type="password"
-                                ngModel
+                                [(ngModel)] = password
                                 name="password"
                                 required
                                 minlength="6"
                                 #passwordCrtl="ngModel"
+                        ></ion-input>
+                    </ion-item>
+                </ion-col>
+            </ion-row>
+            <ion-row padding *ngIf="!isLogin">
+                <ion-col size-sm="6" offset-sm="3">
+                    <ion-item>
+                        <ion-label position="floating">确认密码</ion-label>
+                        <ion-input
+                                type="password"
+                                name="password"
+                                required
+                                minlength="6"
                         ></ion-input>
                     </ion-item>
                 </ion-col>
@@ -39,7 +73,7 @@
                             expand="block"
                             [disabled]="!emailCtrl.valid || !passwordCrtl.valid"
                             type="submit"
-                    >{{isLogin ? '登  录' : '注  册'}}</ion-button>
+                    >{{isLogin ? '登  录' : '注  册'}} </ion-button>
                 </ion-col>
             </ion-row>
 
@@ -49,6 +83,13 @@
                                 (click)="isLogin = !isLogin">{{isLogin ? '还没有用户？点此注册' : '切换登录'}}</ion-button>
                 </ion-col>
             </ion-row>
+
+            <ion-row>
+                <ion-col size-sm="6" offset-sm="3" style="position: relative; top: 30px">
+                    <ion-button expand="block" fill="clear">忘记密码？点此找回</ion-button>
+                </ion-col>
+            </ion-row>
         </ion-grid>
     </form>
 </ion-content>
+

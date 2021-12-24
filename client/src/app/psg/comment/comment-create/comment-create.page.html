@@ -1,11 +1,11 @@
-<ion-header no-border>
+<ion-header no-border *ngIf="!isloading">
     <ion-toolbar>
         <ion-grid>
             <ion-row>
                 <!--    头像-->
                 <ion-col size="2">
                     <ion-avatar style="width: 42px; height: 42px">
-                        <img [src]="curUser.avaterUrl">
+                        <img [src]="serverUrl + '/user/avatar/' + tarUser.id">
                     </ion-avatar>
                 </ion-col>
                 <!--    名称以及评论内容-->
@@ -14,7 +14,7 @@
                         <!--        名称以及各种标签-->
                         <ion-row>
                             <ion-col size="11">
-                                {{curUser.nickname}}
+                                {{tarUser.nickName}}
                             </ion-col>
                             <ion-col size="1" (click)="back()">
                                 <ion-icon name="close"></ion-icon>
@@ -33,8 +33,8 @@
         </ion-grid>
 
     </ion-toolbar>
-</ion-header>
-<ion-content>
+</ion-header >
+<ion-content *ngIf="!isloading">
     <ion-grid>
 
         <ion-row>
@@ -50,7 +50,6 @@
 
     </ion-grid>
 </ion-content>
-
-<ion-footer>
+<ion-footer *ngIf="!isloading">
     <ion-button expand="block" (click)="submitComment()">提交评论</ion-button>
 </ion-footer>

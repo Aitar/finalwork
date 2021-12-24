@@ -1,0 +1,25 @@
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://1.116.150.131:3306/final_work?characterEncoding=utf8&useUnicode=true&useSSL=false&serverTimezone=UTC
+    username: root
+    password: hariod
+
+
+
+  data:
+    mongodb:
+      host: 192.168.10.102
+      port: 27017
+      database: recommender
+  servlet:
+    multipart:
+      max-file-size: 10MB
+      max-request-size: 10MB
+mybatis:
+  type-aliases-package: com.msc.pojo
+
+server:
+  address: 0.0.0.0
+  port: 8088
+

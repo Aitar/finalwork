@@ -8,6 +8,7 @@ import {UserPageRoutingModule} from './user-routing.module';
 
 import {UserPage} from './user.page';
 import {NgZorroAntdMobileModule} from 'ng-zorro-antd-mobile';
+import {PsgCardComponent} from './psg-card/psg-card.component';
 
 @NgModule({
     imports: [
@@ -15,9 +16,9 @@ import {NgZorroAntdMobileModule} from 'ng-zorro-antd-mobile';
         FormsModule,
         IonicModule,
         UserPageRoutingModule,
-        NgZorroAntdMobileModule
+        NgZorroAntdMobileModule,
     ],
-    declarations: [UserPage]
+    declarations: [UserPage, PsgCardComponent]
 })
 export class UserPageModule {
 }

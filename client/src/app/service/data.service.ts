@@ -1,110 +1,190 @@
 import {Injectable} from '@angular/core';
 import {BehaviorSubject, Observable} from 'rxjs';
-import {Passage} from '../../assets/model/Passage.model';
-import {mockPassges} from '../../assets/mockData/mock-passages';
-import {mockUsers} from '../../assets/mockData/mock-users';
-import {User} from '../../assets/model/User.model';
-import {filter, map, take} from 'rxjs/operators';
-import {mockComments} from '../../assets/mockData/mock-comments';
-import {MyComment} from '../../assets/model/MyComment.model';
+import {filter, map, switchMap, take, tap} from 'rxjs/operators';
 import {LikeMap} from '../../assets/model/LikeMap.model';
-import {mockLike} from '../../assets/mockData/mock-likes';
+import {HttpClient} from '@angular/common/http';
+import {serverUrl} from '../../assets/config';
+import {FlwMap} from '../../assets/model/FlwMap.model';
+import {AuthService} from './auth.service';
+import {CollectMap} from '../../assets/model/CollectMap.model';
+import {Trace} from '../../assets/model/Trace.model';
+
 
 @Injectable({
     providedIn: 'root'
 })
 export class DataService {
-    private _passages = new BehaviorSubject<Passage[]>(mockPassges);
-    private _users = new BehaviorSubject<User[]>(mockUsers);
-    private _comments = new BehaviorSubject<MyComment[]>(mockComments);
-    private _likeMaps = new BehaviorSubject<LikeMap[]>(mockLike);
+    private _likeMaps = new BehaviorSubject<LikeMap[]>([]);
+    private _flwerMaps = new BehaviorSubject<FlwMap[]>([]);
+    private _flwedMaps = new BehaviorSubject<FlwMap[]>([]);
+    private _collcetMaps = new BehaviorSubject<CollectMap[]>([]);
+    isTrace = true;
 
-    constructor() {
-    }
+    constructor(private http: HttpClient,
+                private authService: AuthService) {}
 
-    get users() {
-        return this._users.asObservable();
-    }
-
-    get passages() {
-        return this._passages.asObservable();
-    }
-
-    get comments() {
-        return this._comments.asObservable();
-    }
-
-    get likeMap() {
+    get likeMaps() {
         return this._likeMaps.asObservable();
     }
 
-    getPsg(id: string) {
-        return this.passages.pipe(
-            take(1),
-            map(passages => {
-                console.log(id);
-                return {...passages.find(p => p.psgId == id)}
-            })
-        );
+    get flwedMaps(){
+        return this._flwedMaps.asObservable();
     }
 
-    getUser(id: string) {
-        return this.users.pipe(
-            take(1),
-            map(users => {
-                return {...users.find(u => u.userId == id)};
-            })
-        );
+    get flwerMaps(){
+        return this._flwerMaps.asObservable();
     }
 
-    getCom(id: string) {
-        return this.comments.pipe(
-            take(1),
-            map(comments => {
-                return {...comments.find(c => c.cid == id)};
-            })
-        );
+    get collectMaps(){
+        return this._collcetMaps.asObservable();
     }
 
-    getComByPsgId(id: string) {
-        return this.comments.pipe(
-            take(1),
-            map(comments => {
-                return {...comments};
-            })
-        );
-    }
-
-    getLikeMapByPsgId(id: string) {
-        return this.likeMap.pipe(
-            map(maps => {
-                return maps.find(m => m.pid == id);
-            })
-        );
-    }
-
-    undoLike(id: number) {
-        return this.likeMap.pipe(
-            map(maps => {
-                console.log('1');
-                for (let i = 0; i < maps.length; i++) {
-                    if (maps[i].id == id) {
-                        maps.splice(i, 1);
+    getLikeMapByUId(id: string){
+        return this.http.get(`${serverUrl}/like/user/${id}`)
+            .pipe(
+                map(resData => {
+                    let likeMaps = [];
+                    for(let key in resData){
+                        if(resData.hasOwnProperty(key)){
+                            let likeMap = new LikeMap();
+                            likeMap.allArgs(resData[key].id, resData[key].uid, resData[key].pid);
+                            likeMaps.push(likeMap);
+                        }
                     }
-                }
-                console.log(mockLike);
-            })
-        );
+                    return likeMaps;
+                }),
+                tap( likeMaps => {
+                    this._likeMaps.next(likeMaps);
+                })
+            );
     }
 
-    like(userId: string, psgId: string) {
-        return this.likeMap.pipe(
-            map(maps => {
-                maps.push(new LikeMap(maps[maps.length - 1].id + 1, userId, psgId));
-                console.log(mockLike);
-                return maps.find(m => m.pid == psgId);
-            })
-        );
+    undoLike(likeMap: LikeMap) {
+       return this.http.delete<{massage: string}>(`${serverUrl}/like/${likeMap.id}`);
+    }
+
+    like(likeMap: LikeMap){
+       return this.http
+           .post<{massage: string}>(
+               `${serverUrl}/like`,
+               likeMap)
+           .pipe(
+               switchMap(()=> {
+                   return this.likeMaps;
+               }),
+               take(1),
+               tap(likeMaps => {
+                   this._likeMaps.next(likeMaps.concat(likeMap))
+               })
+           )
+    }
+
+    getFlwMapByFlwer(flwer: string){
+        return this.http.get<FlwMap[]>(`${serverUrl}/flw/flwer/${flwer}`)
+            .pipe(
+                map(resData => {
+                    let flwMaps = [];
+                    for(let key in resData){
+                        if(resData.hasOwnProperty(key)){
+                            let flwMap  = new FlwMap();
+                            flwMap.allArgs(resData[key].id, resData[key].follower, resData[key].followed);
+                            flwMaps.push(flwMap);
+                        }
+                    }
+                    return flwMaps;
+                }),
+                tap(flwMaps => {
+                    this._flwerMaps.next(flwMaps);
+                })
+            );
+    }
+
+    getFlwMapByFlwed(flwed: string){
+        return this.http.get<FlwMap[]>(`${serverUrl}/flw/flwed/${flwed}`)
+            .pipe(
+                map(resData => {
+                    let flwMaps = [];
+                    for(let key in resData){
+                        if(resData.hasOwnProperty(key)){
+                            let flwMap  = new FlwMap();
+                            flwMap.allArgs(resData[key].id, resData[key].follower, resData[key].followed);
+                            flwMaps.push(flwMap);
+                        }
+                    }
+                    return flwMaps;
+                }),
+                tap(flwMaps => {
+                    this._flwerMaps.next(flwMaps);
+                })
+            );
+    }
+
+    follow(id: string, tarId: string){
+
+        let flwMap = new FlwMap();
+        flwMap.allArgs(id, this.authService.curUser.id, tarId);
+        return this.http.post<{massage: string}>(`${serverUrl}/flw`, flwMap);
+    }
+
+    undoFollow(id: string){
+        return this.http.delete(`${serverUrl}/flw/${id}`);
+    }
+
+    isCollected(uid: string, pid: string){
+       return this.http.post(
+            `${serverUrl}/collect/is`,
+            {'uid': uid, 'pid': pid}
+            );
+    }
+
+    collect(collect: CollectMap){
+        return this.http.
+        post(`${serverUrl}/collect`, collect)
+            .pipe(
+                switchMap(()=> {
+                    return this.collectMaps;
+                }),
+                take(1),
+                tap(collectMaps => {
+                    this._collcetMaps.next(collectMaps.concat(collect))
+                })
+        )
+    }
+
+    undoCollect(id: string){
+        console.log(id);
+        return this.http.delete(`${serverUrl}/collect/${id}`)
+            .pipe(
+                switchMap(()=> {
+                    return this.collectMaps;
+                }),
+                take(1),
+                tap(collectMaps => {
+                    for(let i = 0; i < collectMaps.length; i++){
+                        if(collectMaps[i].id == id){
+                            collectMaps.splice(i, 1);
+                        }
+                    }
+                    this._collcetMaps.next(collectMaps);
+                })
+            )
+    }
+
+    undoCollectByTwo(uid: string, pid: string){
+       return this.http.post(
+            `${serverUrl}/collect/deleteByTwo`,
+            {'uid':uid, 'pid': pid});
+    }
+
+    postTrace(trace: Trace){
+        return this.http.post(`${serverUrl}/trace`, trace);
+    }
+
+    postRate(userId: string, psgId: string, rating: number){
+        this.http.post(
+            `${serverUrl}/rate`,
+            {"userId": userId, "psgId": psgId, "Rating": rating, "timestamp": new Date().getTime()}
+        ).subscribe()
     }
 
     add0(m) {
@@ -121,4 +201,18 @@ export class DataService {
         var s = time.getSeconds();
         return y + '-' + this.add0(m) + '-' + this.add0(d) + ' ' + this.add0(h) + ':' + this.add0(mm) + ':' + this.add0(s);
     }
+
+    formatIt(date: Date, form: string) {
+        const pad = (n: number) => (n < 10 ? `0${n}` : n);
+        const dateStr = `${date.getFullYear()}-${pad(date.getMonth() + 1)}-${pad(date.getDate())}`;
+        const timeStr = `${pad(date.getHours())}:${pad(date.getMinutes())}`;
+        if (form === 'YYYY-MM-DD') {
+            return dateStr;
+        }
+        if (form === 'HH:mm') {
+            return timeStr;
+        }
+        return `${dateStr} ${timeStr}`;
+    }
+
 }
